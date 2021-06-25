@@ -1,0 +1,11 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Backend of MailMonk",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm start"
+  },
+  "author": "Adarsh Shrivastava",
+  "license": "ISC"
+}
