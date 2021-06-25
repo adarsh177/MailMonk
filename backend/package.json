@@ -7,5 +7,10 @@
     "test": "npm start"
   },
   "author": "Adarsh Shrivastava",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "multer": "^1.4.2",
+    "nodemailer": "^6.6.2"
+  }
 }
