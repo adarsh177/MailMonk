@@ -1,0 +1,21 @@
+.heading{
+    font-size: 42px;
+    color :#03045E;
+    font-weight: 600;
+}
+.heading-container{
+    display: flex;
+    align-items: center;
+
+}
+.tooltip-container{
+    padding:3px 20px 0 20px;
+}
+.info-button{
+    font-size: 20px;
+    color :#03045E;
+}
+.info-button:hover{
+    cursor: pointer;
+    color: grey;
+}
