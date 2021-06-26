@@ -1,0 +1,21 @@
+.flex-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.flex-end-elements {
+    justify-content: flex-end;
+}
+/* .react-datepicker-wrapper {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+}
+.react-datepicker__input-container {
+    width: 70%;
+}
+.dateandtime {
+    height: 3rem;
+    padding: 0 5px;
+} */
