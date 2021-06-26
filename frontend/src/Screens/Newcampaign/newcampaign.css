@@ -1,0 +1,12 @@
+.flex-start-element {
+    justify-content: flex-start;
+}
+.newcampaign-container {
+    display: grid;
+    grid-template-columns: 70px, auto;
+}
+.main {
+    grid-column: 2/3;
+    max-height: 100vh;
+    overflow-y: auto;
+}

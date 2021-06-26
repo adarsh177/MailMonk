@@ -19,7 +19,7 @@ body {
     border: none;
     border-bottom: 2px solid #464646;
     transition: 0.3s ease all;
-    width: 80%;
+    width: 100%;
 }
 .space-bw-rows {
     margin: 50px 0;
@@ -27,6 +27,9 @@ body {
 .inputfield-form:focus {
     outline: none;
     border-bottom: 3px solid #03045e;
+}
+.fullWidthInputField {
+    width: 100%;
 }
 .form-button {
     width: 150px;
@@ -73,4 +76,7 @@ body {
 .paper-clip-icon {
     transform: rotate(-45deg);
     font-size: 20px;
+}
+.react-datepicker-popper {
+    z-index: 2 !important;
 }
