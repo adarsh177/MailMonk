@@ -6,6 +6,7 @@ import {
 
 import Home from "./Screens/Home/home";
 import Newdirectmail from "./Screens/Newdirectmail/newdirectmail";
+import LoginScreen from "./Screens/LoginScreen/LoginScreen";
 
 
 function App() {
@@ -15,10 +16,13 @@ function App() {
       <Switch>
 
         <Route exact path="/">
-        <Home/>
+          <Home/>
+        </Route>
+        <Route exact path="/login">
+          <LoginScreen/>
         </Route>
         <Route exact path="/newdirectmail">
-        <Newdirectmail/>
+          <Newdirectmail/>
         </Route>
 
       </Switch>

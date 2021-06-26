@@ -20,15 +20,20 @@ const API_TRACK = require('./Endpoints/Track');
 
 // Variables
 const mailManager = new MailManager();
+const userManager = new UserManager();
+let VerifyUserMiddleware = (req, res, next) => {
+    userManager.VerifyUser(req, res, next);
+}
 
 // Initializing express
 const app = express();
 mailManager.init();
 setupExpressAndMulter();
 handleAPICalls();
-
-mailManager.sendMail('adarsh1772000@gmail.com', 'hello', 'test mail');
-console.log('done');
+// Start Listening
+app.listen(3500, () => {
+    console.log('Express Connected!');
+});
 
 function setupExpressAndMulter(){
     app.use(express.json());
@@ -50,10 +55,47 @@ function setupExpressAndMulter(){
 }
 
 function handleAPICalls(){
-    // API CALLS HERE
+    // Direct Mail API
+    app.get('/dm/getDraft', VerifyUserMiddleware, (req, res) => {
+        
+    });
 
-    // Start Listening
-    app.listen(3000, () => {
-        console.log('Express Connected!');
+    // Receipts API
+    app.get('/receipts', VerifyUserMiddleware, async (req, res) =>  {
+        res.send("Done!!");
+    });
+    app.get('/receipts/:receiptId', VerifyUserMiddleware, (req, res) => {
+        
+    });
+
+    // Campaign API
+    app.get('/campaign', VerifyUserMiddleware, (req, res) => {
+
+    });
+    app.get('/campaign/:campaignId', VerifyUserMiddleware, (req, res) => {
+
+    });
+    app.delete('/campaign/:campaignId', VerifyUserMiddleware, (req, res) => {
+
+    });
+    app.post('/campaign/new', VerifyUserMiddleware, (req, res) => {
+
+    });
+    app.get('/campaign/draft', VerifyUserMiddleware, (req, res) => {
+
+    });
+
+    // Contacts API
+    app.get('/contacts/:groupId', VerifyUserMiddleware, (req, res) => {
+
+    });
+    app.delete('/contacts/:groupId/:contactId', VerifyUserMiddleware, (req, res) => {
+
+    });
+    app.put('/contacts/:groupId/:contactId', VerifyUserMiddleware, (req, res) => {
+
+    });
+    app.post('/contacts/add', VerifyUserMiddleware, (req, res) => {
+
     });
 }
