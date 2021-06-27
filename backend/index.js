@@ -96,7 +96,7 @@ function handleAPICalls(){
     app.get('/contacts/groups', VerifyUserMiddleware, (req, res) => {
         API_CONTACTS.GetGroups(contactManager, req, res);
     });
-    app.get('/contacts/:groupId/', VerifyUserMiddleware, (req, res) => {
+    app.get('/contacts/group/:groupId/', VerifyUserMiddleware, (req, res) => {
         //GetContacts
         API_CONTACTS.GetContacts(contactManager, req, res);
     });
