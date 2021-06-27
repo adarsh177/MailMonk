@@ -1,5 +1,6 @@
 const express = require('express');
 const multer = require('multer');
+const fs = require('fs');
 const Utils = require('./Utils');
 
 // Importing Managers
@@ -23,6 +24,7 @@ const mailManager = new MailManager();
 const userManager = new UserManager();
 const contactManager = new ContactsManager();
 const receiptManager = new ReceiptManager();
+const trackManager = new TrackManager();
 let VerifyUserMiddleware = (req, res, next) => {
     userManager.VerifyUser(req, res, next);
 }
@@ -32,6 +34,10 @@ const app = express();
 mailManager.init();
 setupExpressAndMulter();
 handleAPICalls();
+
+// loading mail logo
+const logoData = fs.readFileSync('./Resources/MailMonk.png');
+
 // Start Listening
 app.listen(3500, () => {
     console.log('Express Connected!');
@@ -107,4 +113,9 @@ function handleAPICalls(){
         //AddContacts
         API_CONTACTS.AddContact(contactManager, req, res);
     })
+
+    //Tracking Related
+    app.get('/images/dot.png', (req, res) => {
+        API_TRACK.TrackIt(trackManager, req, res, logoData);
+    });
 }
