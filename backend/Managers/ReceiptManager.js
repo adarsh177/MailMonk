@@ -26,7 +26,7 @@ class ReceiptManager{
         }
     }
 
-    async GetReceipts(userId, page){
+    async GetReceipts(userId){
         let projectionObject = {
             subject: true,
             type: true,
@@ -34,7 +34,7 @@ class ReceiptManager{
             time: true,
             views: true
         };
-        let cursor = this.ReceiptCollection.find({userId: userId}, {skip: (page * 10), limit: 10, projection: projectionObject});
+        let cursor = this.ReceiptCollection.find({userId: userId}, {projection: projectionObject});
         try{
             let receipts = await cursor.toArray()
             return receipts;

@@ -90,7 +90,7 @@ function handleAPICalls(){
     });
     
     // Receipts API
-    app.get('/receipts/:page?', VerifyUserMiddleware, (req, res) =>  {
+    app.get('/receipts/', VerifyUserMiddleware, (req, res) =>  {
         // Only returns
         API_RECEIPTS.GetReceipts(receiptManager, req, res);
     });
@@ -107,7 +107,7 @@ function handleAPICalls(){
     });
 
     // Campaign API
-    app.get('/campaigns/:page?', VerifyUserMiddleware, async (req, res) => {
+    app.get('/campaigns/', VerifyUserMiddleware, async (req, res) => {
         API_CAMPAIGNS.GetAllCampaigns(campaignManager, req, res);
     });
     app.get('/campaigns/single/:campaignId', VerifyUserMiddleware, (req, res) => {

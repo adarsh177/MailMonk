@@ -1,8 +1,7 @@
 module.exports = {
     GetAllCampaigns: async (campaignManager, req, res) => {
         let userId = res.locals.UserAuth.uid;
-        let page = req.params.page ? req.params.page : 0;
-        let campaigns = await campaignManager.GetCampaigns(userId, page);
+        let campaigns = await campaignManager.GetCampaigns(userId);
         res.status(200).send({
             campaigns: campaigns
         });

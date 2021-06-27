@@ -38,6 +38,7 @@ const History = (props) => {
           }else{
               setReceipts(rctList);
           }
+          console.log(rctList);
           setShowLoading(false);
         });
       }, []);
