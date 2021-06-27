@@ -56,26 +56,26 @@ const History = (props) => {
 
                 <div className="history-details" data-simplebar>
                     <div className="history-heading-table">
-                        <div className="table-content-to">To</div>
-                        <div className="table-content-subject">Subject</div>
+                        <div className="table-content-to">Subject</div>
+                        <div className="table-content-subject">Views</div>
                         <div className="table-content-type">Type</div>
                         <div className="table-content-date">Date</div>
                         <div className="table-content-view">View</div>
                     </div>
-                    {historyData.map((details) => {
+                    {receipts.map((details) => {
                         return (
                             <div className="history-values-table">
                                 <div className="table-content-to">
-                                    {details.to}
-                                </div>
-                                <div className="table-content-subject">
                                     {details.subject}
                                 </div>
+                                <div className="table-content-subject">
+                                    {details.views}
+                                </div>
                                 <div className="table-content-type">
-                                    {details.type}
+                                    {details.type == "direct" ? "Direct" : "Campaign"}
                                 </div>
                                 <div className="table-content-date">
-                                    {details.date}
+                                    {new Date(details.time).toLocaleDateString()}
                                 </div>
                                 <div className="table-content-view">
                                     <Link

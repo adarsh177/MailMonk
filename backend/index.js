@@ -107,7 +107,7 @@ function handleAPICalls(){
     });
 
     // Campaign API
-    app.get('/campaigns/', VerifyUserMiddleware, async (req, res) => {
+    app.get('/campaigns/:status', VerifyUserMiddleware, async (req, res) => {
         API_CAMPAIGNS.GetAllCampaigns(campaignManager, req, res);
     });
     app.get('/campaigns/single/:campaignId', VerifyUserMiddleware, (req, res) => {

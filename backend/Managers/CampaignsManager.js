@@ -45,7 +45,7 @@ class CampaignsManager{
         }
     }
 
-    async GetCampaigns(userId){
+    async GetCampaigns(userId, status){
         let projectionObject = {
             status: true,
             startTime: true,
@@ -54,7 +54,7 @@ class CampaignsManager{
             interval: true,
             nextTime: true
         };
-        let cursor = this.CampaignCollection.find({userId: userId}, {projection: projectionObject});
+        let cursor = this.CampaignCollection.find({userId: userId, status: status}, {projection: projectionObject});
         try{
             let campaigns = await cursor.toArray()
             return campaigns;
