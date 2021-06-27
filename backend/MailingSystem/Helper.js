@@ -54,7 +54,7 @@ class Helper{
         this.startCycle();
     }
 
-    async GetTrackerImage(){
+    GetTrackerImage(){
         return `<br><img src="https://backendmailmonk.developersmonk.com/images/dot.png" alt="Mail Sent using MailMonk" /><br><p>Mail sent using MailMonk. Timestamp: ${new Date().getTime()}</p>`;
     }
 
