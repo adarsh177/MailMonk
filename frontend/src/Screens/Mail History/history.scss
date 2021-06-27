@@ -1,0 +1,64 @@
+.history {
+  display: grid;
+  grid-template-columns: 70px auto;
+  .main {
+    max-height: 100vh;
+    overflow-y: auto;
+    grid-column: 2/3;
+    padding-top: 5vh;
+    padding-left: 50px;
+    .history-details {
+      font-size: 18px;
+      .history-heading-table {
+        border-bottom: 1px solid black;
+        font-weight: bold;
+      }
+      .history-heading-table,
+      .history-values-table {
+        display: flex;
+        width: 90%;
+
+        min-width: 900px;
+
+        div {
+          padding: 15px;
+        }
+        .table-content-to {
+          width: 25%;
+        }
+        .table-content-subject {
+          width: 30%;
+        }
+        .table-content-type {
+          width: 15%;
+        }
+        .table-content-date {
+          width: 20%;
+        }
+        .table-content-view {
+          width: 10%;
+          .fa-eye {
+            text-decoration: none;
+            color: #03045e;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media all and (max-width: 500px) {
+  .history {
+    display: flex;
+    flex-direction: column;
+    .main {
+      padding-top: 2vh;
+      padding-left: 18px;
+    }
+    .footer {
+      position: fixed;
+      width: 100%;
+      bottom: 0;
+    }
+  }
+}
