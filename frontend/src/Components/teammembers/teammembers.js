@@ -12,8 +12,10 @@ const Team = () => {
       </div>
       <div className="created-by">
         MAILMONK - Created by{" "}
-        <a href="https://github.com/adarsh177">Adarsh Shrivastava</a>&nbsp;
-        <a href="https://github.com/Abhishek1342">Abhishek Kumar</a>&nbsp;
+        <a href="https://github.com/adarsh177">Adarsh Shrivastava</a>
+        &nbsp;,&nbsp;
+        <a href="https://github.com/Abhishek1342">Abhishek Kumar</a>
+        &nbsp;and&nbsp;
         <a href="https://github.com/Pratik-Kumar-621">Pratik Kumar</a>&nbsp;
       </div>
     </div>
