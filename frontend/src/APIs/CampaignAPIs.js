@@ -5,12 +5,12 @@ import firebase from 'firebase';
 const endpoint = "https://backendmailmonk.developersmonk.com";
 
 const CampaignAPIs = {
-    GetCampaigns: async (page) => {
+    GetCampaigns: async (status) => {
         if(firebase.auth().currentUser == null) return null;
 
         let auth = 'Bearer ' + (await firebase.auth().currentUser.getIdToken());
         try{
-            let response = await axios.get(`${endpoint}/campaigns/${page}`, {
+            let response = await axios.get(`${endpoint}/campaigns/${status}`, {
                 headers: {
                     "Authorization": auth
                 }
