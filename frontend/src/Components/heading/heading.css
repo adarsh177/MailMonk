@@ -1,21 +1,35 @@
-.heading{
+.heading {
     font-size: 42px;
-    color :#03045E;
+    color: #03045e;
     font-weight: 600;
 }
-.heading-container{
+.heading-container {
     display: flex;
     align-items: center;
-
 }
-.tooltip-container{
-    padding:3px 20px 0 20px;
+.tooltip-container {
+    padding: 3px 20px 0 20px;
 }
-.info-button{
+.info-button {
     font-size: 20px;
-    color :#03045E;
+    color: #03045e;
 }
-.info-button:hover{
+.info-button:hover {
     cursor: pointer;
     color: grey;
+}
+@media screen and (max-width: 992px) {
+    .heading {
+        font-size: 36px;
+        font-weight: 600;
+    }
+}
+@media screen and (max-width: 500px) {
+    .heading {
+        font-size: 30px;
+        font-weight: 600;
+    }
+    .tooltip-container {
+        padding: 3px 10px 0 10px;
+    }
 }

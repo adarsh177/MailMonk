@@ -9,15 +9,15 @@ import Heading from "../../Components/heading/heading";
 import "./history.scss";
 import { historyData } from "../../Data/mail-history-data";
 const History = () => {
-    return (
-        <div className="history">
-            <Navigation />
-            <MobileNavigationTop />
-            <div className="main">
-                <Heading
-                    value="Mail History"
-                    tooltip="List of all previous direct mails and campaigns"
-                />
+  return (
+    <div className="history">
+      <Navigation />
+      <MobileNavigationTop />
+      <div className="main">
+        <Heading
+          value="Mail History"
+          tooltip="List of all previous direct mails and campaigns"
+        />
 
                 <div className="history-details" data-simplebar>
                     <div className="history-heading-table">

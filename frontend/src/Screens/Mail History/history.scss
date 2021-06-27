@@ -37,14 +37,24 @@
         }
         .table-content-view {
           width: 10%;
+          text-align: center;
           .fa-eye {
             text-decoration: none;
             color: #03045e;
+            display: block;
+            text-align: center;
+            &:hover {
+              color: #7e7eac;
+            }
           }
         }
       }
     }
   }
+}
+
+.simplebar-placeholder {
+  display: none;
 }
 
 @media all and (max-width: 500px) {
@@ -54,6 +64,9 @@
     .main {
       padding-top: 2vh;
       padding-left: 18px;
+      .history-details {
+        font-size: 14px;
+      }
     }
     .footer {
       position: fixed;

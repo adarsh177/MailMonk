@@ -3,10 +3,37 @@
 }
 .newcampaign-container {
     display: grid;
-    grid-template-columns: 70px, auto;
+    grid-template-columns: 70px auto;
 }
 .main {
     grid-column: 2/3;
     max-height: 100vh;
     overflow-y: auto;
+    padding: 0 20px;
+}
+@media screen and (max-width: 992px) {
+    .space-bw-rows {
+        margin: 10px 0;
+    }
+    .media-flex-center {
+        justify-content: center;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .main {
+        max-height: none;
+    }
+    .newcampaign-container {
+        display: flex;
+        flex-direction: column;
+    }
+    .footer {
+        position: fixed;
+        width: 100%;
+        bottom: 0;
+    }
+    .media-margin {
+        margin: 0 0 50px 0;
+    }
 }

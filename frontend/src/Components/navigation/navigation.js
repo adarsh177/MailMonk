@@ -11,6 +11,7 @@ export const Navigation = () => {
   const hideSlide = () => {
     setSlide("burger");
   };
+  const [Indexing, setIndexing] = useState(1);
 
   return (
     <>
@@ -27,25 +28,25 @@ export const Navigation = () => {
         <div className={`nav-logo ${slide}-nav-logo`}>
           <img src={logo} alt="Logo" />
         </div>
-        <Link className="nav-links" to="/">
+        <Link className="nav-links" to="/dashboard">
           <div className="nav-icon">
             <i class="fas fa-home"></i>
           </div>
-          <div className={`nav-link-item ${slide}-nav-link-item`}>Home</div>
+          <div className={`nav-link-item ${slide}-nav-link-item `}>Home</div>
         </Link>
         <Link className="nav-links" to="/history">
           <div className="nav-icon">
             <i class="fas fa-paper-plane"></i>
           </div>
-          <div className={`nav-link-item ${slide}-nav-link-item`}>
+          <div className={`nav-link-item ${slide}-nav-link-item `}>
             Mail History
           </div>
         </Link>
-        <Link className="nav-links" to="/campaigns">
+        <Link className="nav-links" to="/campaign">
           <div className="nav-icon">
             <i class="fas fa-rocket"></i>
           </div>
-          <div className={`nav-link-item ${slide}-nav-link-item`}>
+          <div className={`nav-link-item ${slide}-nav-link-item `}>
             Campaigns
           </div>
         </Link>
@@ -53,7 +54,9 @@ export const Navigation = () => {
           <div className="nav-icon">
             <i class="fas fa-user"></i>
           </div>
-          <div className={`nav-link-item ${slide}-nav-link-item`}>Contacts</div>
+          <div className={`nav-link-item ${slide}-nav-link-item `}>
+            Contacts
+          </div>
         </Link>
         <div className="nav-logout">
           <div className="nav-icon">
