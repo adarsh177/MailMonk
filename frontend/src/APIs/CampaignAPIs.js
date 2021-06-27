@@ -4,61 +4,61 @@ import firebase from 'firebase';
 // API ENDPOINT
 const endpoint = "http://localhost:3500";
 
-const ReceiptAPIs = {
-    GetReceipts: async (page) => {
+const CampaignAPIs = {
+    GetCampaigns: async (page) => {
         if(firebase.auth().currentUser == null) return null;
-        
+
         let auth = 'Bearer ' + (await firebase.auth().currentUser.getIdToken());
         try{
-            let response = await axios.get(`${endpoint}/receipts/${page}`, {
+            let response = await axios.get(`${endpoint}/campaigns/${page}`, {
                 headers: {
                     "Authorization": auth
                 }
             });
             if(response.status == 200)
-                return response.data['receipts'];
+                return response.data['campaigns'];
             else return [];
         }catch(ex){
             if(ex.response && ex.response.status == 401){
                 return null;
             }
-            console.log('Error getting receipts', ex.response);
+
+            console.log('Error getting campaigns', ex.response);
             return [];
         }
     },
-    GetReceiptInfo: async (receiptId) => {
+    GetCampaignInfo: async (campaignId) => {
         if(firebase.auth().currentUser == null) return null;
-        
+
         let auth = 'Bearer ' + (await firebase.auth().currentUser.getIdToken());
         try{
-            let response = await axios.get(`${endpoint}/receipts/single/${receiptId}`, {
+            let response = await axios.get(`${endpoint}/campaigns/single/${campaignId}`, {
                 headers: {
                     "Authorization": auth
                 }
             });
             if(response.status == 200)
-                return response.data['receipts'];
-            else
-                return {};
+                return response.data;
+            else return {};
         }catch(ex){
             if(ex.response && ex.response.status == 401){
                 return null;
             }
-            console.log('Error getting receipt info', ex.response);
+
+            console.log('Error getting campaign info', ex.response);
             return {};
         }
     },
-    CancelReceipt: async (receiptId) => {
+    CancelCampaign: async (campaignId) => {
         if(firebase.auth().currentUser == null) return null;
-        
+
         let auth = 'Bearer ' + (await firebase.auth().currentUser.getIdToken());
         try{
-            let response = await axios.put(`${endpoint}/receipts/cancel/${receiptId}`, {}, {
+            let response = await axios.put(`${endpoint}/campaigns/cancel/${campaignId}`, {}, {
                 headers: {
                     "Authorization": auth
                 }
             });
-
             if(response.status == 200)
                 return true;
             else return false;
@@ -66,34 +66,35 @@ const ReceiptAPIs = {
             if(ex.response && ex.response.status == 401){
                 return null;
             }
-            console.log('Error cancelling receipts', ex.response);
+
+            console.log('Error cancelling campaigns', ex.response);
             return false;
         }
     },
-    NewReceipt: async (data) => {
+    AddCampaign: async (data) => {
         if(firebase.auth().currentUser == null) return null;
-        
+
         let auth = 'Bearer ' + (await firebase.auth().currentUser.getIdToken());
         try{
-            let response = await axios.post(`${endpoint}/receipts/new`, {
-                receipt: data
+            let response = await axios.post(`${endpoint}/campaigns/new`, {
+                campaign: data
             }, {
                 headers: {
                     "Authorization": auth
                 }
             });
-
             if(response.status == 200)
-                return response.data.receiptId;
+                return response.data.campaignId;
             else return false;
         }catch(ex){
             if(ex.response && ex.response.status == 401){
                 return null;
             }
-            console.log('Error adding receipt', ex.response);
+
+            console.log('Error adding campaigns', ex.response);
             return false;
         }
     },
 }
 
-export default ReceiptAPIs;
+export default CampaignAPIs;

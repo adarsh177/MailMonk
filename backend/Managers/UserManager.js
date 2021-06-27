@@ -33,6 +33,7 @@ class UserManager{
     //  loggedIn, isNewUser, email, userId
     async VerifyUser(req, res, next){
         let authHeader = req.headers.authorization;
+        res.setHeader("Access-Control-Allow-Origin", "*");
         if(!authHeader || !authHeader.startsWith('Bearer')){
             res.status(401).send("UnAuthorized: Token not found");
             return;

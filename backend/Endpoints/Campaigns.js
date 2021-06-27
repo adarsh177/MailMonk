@@ -29,7 +29,7 @@ module.exports = {
     },
     NewCampaign:  async (campaignManager, contactManager, req, res) => {
         let userId = res.locals.UserAuth.uid;
-        let data = req.body;
+        let data = req.body.campaign;
         let newCampaignId = await campaignManager.AddCampaign(contactManager, userId, data);
         if(newCampaignId){
             res.status(200).send({

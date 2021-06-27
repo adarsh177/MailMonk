@@ -4,9 +4,10 @@ import firebase from 'firebase';
 import FirebaseUtil from '../../Utils/FirebaseUtil';
 import MailMonkLogo from '../../Resources/MailMonk-bgless.png';
 import MailboxImage from '../../Resources/Mailbox.svg';
+import {withRouter} from 'react-router-dom'
 
 
-export default function LoginScreen(){
+function LoginScreen(props){
     const FirebaseApp = new FirebaseUtil().app();
     const [showUI, setShowUI] = useState(true);
     var firebaseui = require('firebaseui');
@@ -51,6 +52,11 @@ export default function LoginScreen(){
             const ui = new firebaseui.auth.AuthUI(firebase.auth())
             ui.start('#FirebasePreBuildUIHolder', uiConfig)
         }
+        
+        firebase.auth().onAuthStateChanged((user) => {
+            if(user !== null)
+                props.history.push('/playground');
+        });
     }, []);
 
     return(
@@ -112,3 +118,5 @@ const FirebaseUIContainer = styled.div`
     width: 100%;
     flex: 1;
 `;
+
+export default withRouter(LoginScreen);

@@ -3,6 +3,7 @@ const express = require('express');
 const multer = require('multer');
 const fs = require('fs');
 const Utils = require('./Utils');
+const cors = require('cors')
 
 // Importing Managers
 const UserManager = require('./Managers/UserManager');
@@ -44,6 +45,7 @@ app.listen(3500, () => {
 function setupExpressAndMulter(){
     app.use(express.json());
     app.use(express.urlencoded({extended: true}));
+    app.use(cors({origin: "*"}));
     app.use(multer({
         storage: multer.diskStorage({
             destination: "./Uploads",
@@ -69,7 +71,7 @@ function handleAPICalls(){
     app.get('/receipts/single/:receiptId', VerifyUserMiddleware, (req, res) => {
         API_RECEIPTS.GetOneReceipt(receiptManager, req, res);
     });
-    app.put('/receipts/:receiptId', VerifyUserMiddleware, (req, res) => {
+    app.put('/receipts/cancel/:receiptId', VerifyUserMiddleware, (req, res) => {
         API_RECEIPTS.CancelReceipt(receiptManager, req, res);
     });
     app.post('/receipts/new', VerifyUserMiddleware, (req, res) => {

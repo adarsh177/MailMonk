@@ -1,50 +1,83 @@
 import axios from 'axios';
 import firebase from 'firebase';
 
+// API ENDPOINT
+const endpoint = "http://localhost:3500";
+
 const ContactAPIs = {
-    GetContact: async (groupId) => {
-        let auth = 'Bearer: ' + (await firebase.auth().currentUser.getIdToken());
+    GetGroups: async () => {
+        if(firebase.auth().currentUser == null) return null;
+        
+        let auth = 'Bearer ' + (await firebase.auth().currentUser.getIdToken());
         try{
-            let response = await axios.get(`${endpoint}/contacts/${groupId}`, {
+            let response = await axios.get(`${endpoint}/contacts/groups`, {
                 headers: {
                     "Authorization": auth
                 }
             });
             if(response.status == 200)
-                return response.data['receipts'];
+                return response.data['groups'];
+            else return [];
+        }catch(ex){
+            if(ex.response && ex.response.status == 401){
+                return null;
+            }
+
+            console.log('Error getting groups', ex.response);
+            return [];
+        }
+    },
+    GetContacts: async (groupId) => {
+        if(firebase.auth().currentUser == null) return null;
+        
+        let auth = 'Bearer ' + (await firebase.auth().currentUser.getIdToken());
+        try{
+            let response = await axios.get(`${endpoint}/contacts/group/${groupId}`, {
+                headers: {
+                    "Authorization": auth
+                }
+            });
+            if(response.status == 200)
+                return response.data['contacts'];
             else return [];
         }catch(ex){
             if(ex.response && ex.response.status == 401){
                 return false;
             }
-            console.log('Error getting receipts', ex.response);
+            console.log('Error getting contacts', ex.response);
             return [];
         }
     },
-    GetReceiptInfo: async (receiptId) => {
-        let auth = 'Bearer: ' + (await firebase.auth().currentUser.getIdToken());
+    DeleteGroup: async (groupId) => {
+        if(firebase.auth().currentUser == null) return null;
+        
+        let auth = 'Bearer ' + (await firebase.auth().currentUser.getIdToken());
         try{
-            let response = await axios.get(`${endpoint}/receipts/single/${receiptId}`, {
+            let response = await axios.delete(`${endpoint}/contacts/${groupId}`, {
                 headers: {
                     "Authorization": auth
                 }
             });
             if(response.status == 200)
-                return response.data['receipts'];
+                return true;
             else
-                return {};
+                return false;
         }catch(ex){
             if(ex.response && ex.response.status == 401){
                 return null;
             }
-            console.log('Error getting receipt info', ex.response);
-            return {};
+            console.log('Error deleting group', ex.response);
+            return false;
         }
     },
-    CancelReceipt: async (receiptId) => {
-        let auth = 'Bearer: ' + (await firebase.auth().currentUser.getIdToken());
+    AddGroup: async (groupName) => {
+        if(firebase.auth().currentUser == null) return null;
+        
+        let auth = 'Bearer ' + (await firebase.auth().currentUser.getIdToken());
         try{
-            let response = await axios.put(`${endpoint}/receipts/cancel/${receiptId}`, {}, {
+            let response = await axios.post(`${endpoint}/contacts/addGroup`, {
+                groupName: groupName
+            }, {
                 headers: {
                     "Authorization": auth
                 }
@@ -57,27 +90,31 @@ const ContactAPIs = {
             if(ex.response && ex.response.status == 401){
                 return null;
             }
-            console.log('Error cancelling receipts', ex.response);
+            console.log('Error adding group', ex.response);
             return false;
         }
     },
-    NewReceipt: async (data) => {
-        let auth = 'Bearer: ' + (await firebase.auth().currentUser.getIdToken());
+    AddContacts: async (contactsList, groupId) => {
+        if(firebase.auth().currentUser == null) return null;
+        
+        let auth = 'Bearer ' + (await firebase.auth().currentUser.getIdToken());
         try{
-            let response = await axios.post(`${endpoint}/receipts/cancel/${receiptId}`, data, {
+            let response = await axios.post(`${endpoint}/contacts/${groupId}`, {
+                contacts: contactsList
+            }, {
                 headers: {
                     "Authorization": auth
                 }
             });
 
             if(response.status == 200)
-                return response.data.receiptId;
+                return true;
             else return false;
         }catch(ex){
             if(ex.response && ex.response.status == 401){
                 return null;
             }
-            console.log('Error adding receipt', ex.response);
+            console.log('Error adding contacts in group', ex.response);
             return false;
         }
     },

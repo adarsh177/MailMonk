@@ -10,7 +10,7 @@ module.exports = {
         let results = await contactManager.GetContact(res.locals.UserAuth.uid, groupId);
         res.status(200).send({
             groupId: groupId,
-            contacts: results
+            contacts: results ? results: []
         });
     },
     DeleteContact: async(contactManager, req, res) => {

@@ -74,8 +74,9 @@ class CampaignsManager{
         };
         try{
             let campaignInfo = await this.CampaignCollection.findOne({_id: new ObjectID(campaignId), userId: userId});
-            let receiptsCursor = this.db.collection("MailReceipt").find({userId: userId, campaignId: campaignId}, {projection: receiptProjectionObject});
+            let receiptsCursor = this.db.collection("MailReceipt").find({userId: userId, campaignId: ObjectID(campaignId)}, {projection: receiptProjectionObject});
             let receipts = await receiptsCursor.toArray();
+            console.log('receipts', receipts, userId, campaignId);
             if(receipts)
                 campaignInfo['receipts'] = receipts;
 

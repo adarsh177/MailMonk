@@ -57,9 +57,9 @@ class ReceiptManager{
     // for scheduled receipts
     async CancelReceipt(userId, receiptId){
         try{
-            let receiptInfo = await this.ReceiptCollection.findOne({receiptId: receiptId, userId: userId});
+            let receiptInfo = await this.ReceiptCollection.findOne({_id: new ObjectID(receiptId), userId: userId});
             if(receiptInfo.status == "pending"){
-                await this.ReceiptCollection.updateOne({userId: userId, _id: new ObjectID(receiptId)}, {$set: {status: "cancel"}});
+                await this.ReceiptCollection.updateOne({userId: userId, _id: new ObjectID(receiptId)}, {$set: {status: "cancelled"}});
                 return true;
             }
         }catch(ex){

@@ -6,6 +6,7 @@ import Newcampaign from "./Screens/Newcampaign/newcampaign";
 import Campaigndetail from "./Screens/Campaigndetail/campaigndetail";
 import History from "./Screens/Mail History/history";
 import LoginScreen from "./Screens/LoginScreen/LoginScreen";
+import Playground from "./Screens/Playground";
 
 function App() {
     return (
@@ -29,6 +30,9 @@ function App() {
                 </Route>
                 <Route exact path="/campaigndetails">
                     <Campaigndetail />
+                </Route>
+                <Route exact path="/playground">
+                    <Playground />
                 </Route>
             </Switch>
         </Router>
