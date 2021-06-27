@@ -20,7 +20,7 @@ const DashBoard = (props) => {
   const firebaseUtil = new FirebaseUtil();
   const [showLoading, setShowLoading] = useState(true);
   const [dashboard, setDashboard] = useState({
-    totalMails: 0,
+    totalMails: -1,
     lastMailViews: 0,
     lastMailRecepientsCount: 0,
     activeCampaigns: 0
@@ -40,6 +40,11 @@ const DashBoard = (props) => {
     let dash = await DashboardAPIs.GetDashboard();
     if(dash){
       setDashboard(dash);
+    }else{
+      setDashboard({
+        ...dashboard,
+        totalMails: 0
+      });
     }
     console.log(dash);
     setShowLoading(false);
