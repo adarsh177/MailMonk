@@ -63,6 +63,11 @@ function setupExpressAndMulter(){
 }
 
 function handleAPICalls(){
+    app.options("*", (req, res) => {
+        res.setHeader("Access-Control-Allow-Headers", "firebaseauth");
+        res.setHeader("Access-Control-Allow-Origin", "*");
+        res.status(200).send("");
+    });
     // Receipts API
     app.get('/receipts/:page?', VerifyUserMiddleware, (req, res) =>  {
         // Only returns
