@@ -1,10 +1,10 @@
 const { MongoClient } = require("mongodb");
+const Config = require('../config.json');
 
 class ContactsManager{
-    AllGood = true;
  
     constructor(){
-        this.uri = "mongodb+srv://mailmonk-user:jKHLyStfxmt2qDU2@mailmonk-main-cluster.yub3v.mongodb.net/test";
+        this.uri = Config.mongoUri;
         this.client = new MongoClient(this.uri, {
             useNewUrlParser: true,
             useUnifiedTopology: true
@@ -21,7 +21,6 @@ class ContactsManager{
             console.log("Connected successfully to server: ContactsManager");
         }catch(ex){
             console.error('Error connecting to database(ContactsManager), ', ex);
-            AllGood = false;
         }
     }
 
@@ -64,10 +63,17 @@ class ContactsManager{
     }
 
     async RemoveGroup(userId, groupId){
-        await this.ContactCollection.updateOne({userId, userId}, {$pull: {groups: {id: groupId}}});
+        await this.ContactCollection.updateOne({userId: userId}, {$pull: {groups: {id: groupId}}});
         let query = {};
         query[groupId] = true;
-        await this.ContactCollection.updateOne({userId, userId}, {$unset: query});
+        await this.ContactCollection.updateOne({userId: userId}, {$unset: query});
+    }
+
+    async GetGroups(userId){
+        let group = await this.ContactCollection.findOne({userId: userId}, {projection: {groups: 1}});
+        if(group){
+            return group['groups'];
+        }else return [];
     }
 
     

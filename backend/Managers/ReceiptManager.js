@@ -1,12 +1,12 @@
-const { response } = require("express");
 const { MongoClient, ObjectID } = require("mongodb");
+const Config = require('../config.json');
+
 
 
 class ReceiptManager{
-    AllGood = true;
 
     constructor(){
-        this.uri = "mongodb+srv://mailmonk-user:jKHLyStfxmt2qDU2@mailmonk-main-cluster.yub3v.mongodb.net/test";
+        this.uri = Config.mongoUri;
         this.client = new MongoClient(this.uri, {
             useNewUrlParser: true,
             useUnifiedTopology: true
@@ -23,7 +23,6 @@ class ReceiptManager{
             console.log("Connected successfully to server: ReceiptManager");
         }catch(ex){
             console.error('Error connecting to database(ReceiptManager), ', ex);
-            AllGood = false;
         }
     }
 
@@ -58,9 +57,9 @@ class ReceiptManager{
     // for scheduled receipts
     async CancelReceipt(userId, receiptId){
         try{
-            let receiptInfo = await this.ReceiptCollection.findOne({receiptId: receiptId, userId: userId});
+            let receiptInfo = await this.ReceiptCollection.findOne({_id: new ObjectID(receiptId), userId: userId});
             if(receiptInfo.status == "pending"){
-                await this.ReceiptCollection.updateOne({userId: userId, _id: new ObjectID(receiptId)}, {$set: {status: "cancel"}});
+                await this.ReceiptCollection.updateOne({userId: userId, _id: new ObjectID(receiptId)}, {$set: {status: "cancelled"}});
                 return true;
             }
         }catch(ex){

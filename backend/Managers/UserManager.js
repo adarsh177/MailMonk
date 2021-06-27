@@ -1,10 +1,9 @@
-const { response } = require("express");
+const Config = require('../config.json');
 const admin = require("firebase-admin");
 const { MongoClient } = require("mongodb");
 const serviceAccount = require("../firebase_admin_privatekey.json");
 
 class UserManager{
-    AllGood = true;
 
     constructor(){
         admin.initializeApp({
@@ -14,7 +13,7 @@ class UserManager{
     }
 
     async loadDatabase(){
-        this.uri = "mongodb+srv://mailmonk-user:jKHLyStfxmt2qDU2@mailmonk-main-cluster.yub3v.mongodb.net/test";
+        this.uri = Config.mongoUri;
         this.client = new MongoClient(this.uri, {
             useNewUrlParser: true,
             useUnifiedTopology: true
@@ -27,7 +26,6 @@ class UserManager{
             console.log("Connected successfully to server: UserManager");
         }catch(ex){
             console.error('Error connecting to database(UserManager), ', ex);
-            AllGood = false;
         }
     }
 
@@ -35,6 +33,7 @@ class UserManager{
     //  loggedIn, isNewUser, email, userId
     async VerifyUser(req, res, next){
         let authHeader = req.headers.authorization;
+        res.setHeader("Access-Control-Allow-Origin", "*");
         if(!authHeader || !authHeader.startsWith('Bearer')){
             res.status(401).send("UnAuthorized: Token not found");
             return;

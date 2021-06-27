@@ -1,6 +1,9 @@
+// Importing Libraries
 const express = require('express');
 const multer = require('multer');
+const fs = require('fs');
 const Utils = require('./Utils');
+const cors = require('cors')
 
 // Importing Managers
 const UserManager = require('./Managers/UserManager');
@@ -13,8 +16,6 @@ const MailManager = require('./Managers/MailsManager');
 // Importing API Endpoints
 const API_CAMPAIGNS = require('./Endpoints/Campaigns');
 const API_CONTACTS = require('./Endpoints/Contacts');
-const API_DMMAIL = require('./Endpoints/DMMail');
-const API_LOGIN = require('./Endpoints/Login');
 const API_RECEIPTS = require('./Endpoints/Receipts');
 const API_TRACK = require('./Endpoints/Track');
 
@@ -23,6 +24,8 @@ const mailManager = new MailManager();
 const userManager = new UserManager();
 const contactManager = new ContactsManager();
 const receiptManager = new ReceiptManager();
+const trackManager = new TrackManager();
+const campaignManager = new CampaignsManager();
 let VerifyUserMiddleware = (req, res, next) => {
     userManager.VerifyUser(req, res, next);
 }
@@ -30,8 +33,10 @@ let VerifyUserMiddleware = (req, res, next) => {
 // Initializing express
 const app = express();
 mailManager.init();
+const logoData = fs.readFileSync('./Resources/MailMonk.png');   // loading mail logo
 setupExpressAndMulter();
 handleAPICalls();
+
 // Start Listening
 app.listen(3500, () => {
     console.log('Express Connected!');
@@ -40,6 +45,7 @@ app.listen(3500, () => {
 function setupExpressAndMulter(){
     app.use(express.json());
     app.use(express.urlencoded({extended: true}));
+    app.use(cors({origin: "*"}));
     app.use(multer({
         storage: multer.diskStorage({
             destination: "./Uploads",
@@ -58,14 +64,14 @@ function setupExpressAndMulter(){
 
 function handleAPICalls(){
     // Receipts API
-    app.get('/receipts/:page', VerifyUserMiddleware, (req, res) =>  {
+    app.get('/receipts/:page?', VerifyUserMiddleware, (req, res) =>  {
         // Only returns
         API_RECEIPTS.GetReceipts(receiptManager, req, res);
     });
     app.get('/receipts/single/:receiptId', VerifyUserMiddleware, (req, res) => {
         API_RECEIPTS.GetOneReceipt(receiptManager, req, res);
     });
-    app.put('/receipts/:receiptId', VerifyUserMiddleware, (req, res) => {
+    app.put('/receipts/cancel/:receiptId', VerifyUserMiddleware, (req, res) => {
         API_RECEIPTS.CancelReceipt(receiptManager, req, res);
     });
     app.post('/receipts/new', VerifyUserMiddleware, (req, res) => {
@@ -74,24 +80,25 @@ function handleAPICalls(){
     });
 
     // Campaign API
-    app.post('/campaign', VerifyUserMiddleware, async (req, res) => {
-        res.status(200).send({
-            emails: await contactManager.ResolveReceipientList(res.locals.UserAuth.uid, req.body.to)
-        });
+    app.get('/campaigns/:page?', VerifyUserMiddleware, async (req, res) => {
+        API_CAMPAIGNS.GetAllCampaigns(campaignManager, req, res);
     });
-    app.get('/campaign/:campaignId', VerifyUserMiddleware, (req, res) => {
-
+    app.get('/campaigns/single/:campaignId', VerifyUserMiddleware, (req, res) => {
+        API_CAMPAIGNS.GetCampaignDetails(campaignManager, req, res);
     });
-    app.delete('/campaign/:campaignId', VerifyUserMiddleware, (req, res) => {
-
+    app.put('/campaigns/cancel/:campaignId', VerifyUserMiddleware, (req, res) => {
+        API_CAMPAIGNS.CancelCampaign(campaignManager, req, res);
     });
-    app.post('/campaign/new', VerifyUserMiddleware, (req, res) => {
-
+    app.post('/campaigns/new', VerifyUserMiddleware, (req, res) => {
+       API_CAMPAIGNS.NewCampaign(campaignManager, contactManager, req, res);
     });
 
 
     // Contacts API
-    app.get('/contacts/:groupId/', VerifyUserMiddleware, (req, res) => {
+    app.get('/contacts/groups', VerifyUserMiddleware, (req, res) => {
+        API_CONTACTS.GetGroups(contactManager, req, res);
+    });
+    app.get('/contacts/group/:groupId/', VerifyUserMiddleware, (req, res) => {
         //GetContacts
         API_CONTACTS.GetContacts(contactManager, req, res);
     });
@@ -106,5 +113,10 @@ function handleAPICalls(){
     app.post('/contacts/:groupId', VerifyUserMiddleware, (req, res) => {
         //AddContacts
         API_CONTACTS.AddContact(contactManager, req, res);
-    })
+    });
+
+    //Tracking Related
+    app.get('/track/:trackId', (req, res) => {
+        API_TRACK.TrackIt(trackManager, req, res, logoData);
+    });
 }

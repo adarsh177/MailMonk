@@ -9,6 +9,7 @@ import Campaigns from "./Screens/Campaigns/campaign";
 import Contacts from "./Screens/Contacts/contact";
 import LoginScreen from "./Screens/LoginScreen/LoginScreen";
 import Home from "./Screens/Home/home"
+import Playground from "./Screens/Playground";
 
 function App() {
     return (
@@ -33,16 +34,19 @@ function App() {
                     <Campaigndetail />
                 </Route>
                 <Route exact path="/dashboard">
-          <DashBoard />
-        </Route>
-        <Route exact path="/campaign">
-          <Campaigns />
-        </Route>
-        <Route exact path="/contacts">
-          <Contacts />
-        </Route>
+                    <DashBoard />
+                </Route>
+                <Route exact path="/campaign">
+                    <Campaigns />
+                </Route>
+                <Route exact path="/contacts">
+                    <Contacts />
+                </Route>
+                <Route exact path="/playground">
+                    <Playground />
+                </Route>
             </Switch>
         </Router>
     );
-    } 
+} 
 export default App;
