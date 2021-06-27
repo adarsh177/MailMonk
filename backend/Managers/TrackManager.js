@@ -2,7 +2,6 @@ const { MongoClient, ObjectID } = require("mongodb");
 
 
 class TrackManager{
-    AllGood = true;
  
     constructor(){
         this.uri = "mongodb+srv://mailmonk-user:jKHLyStfxmt2qDU2@mailmonk-main-cluster.yub3v.mongodb.net/test";
@@ -22,7 +21,6 @@ class TrackManager{
             console.log("Connected successfully to server: TrackManager");
         }catch(ex){
             console.error('Error connecting to database(TrackManager), ', ex);
-            AllGood = false;
         }
     }
 

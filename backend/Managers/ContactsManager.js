@@ -1,7 +1,6 @@
 const { MongoClient } = require("mongodb");
 
 class ContactsManager{
-    AllGood = true;
  
     constructor(){
         this.uri = "mongodb+srv://mailmonk-user:jKHLyStfxmt2qDU2@mailmonk-main-cluster.yub3v.mongodb.net/test";
@@ -21,7 +20,6 @@ class ContactsManager{
             console.log("Connected successfully to server: ContactsManager");
         }catch(ex){
             console.error('Error connecting to database(ContactsManager), ', ex);
-            AllGood = false;
         }
     }
 

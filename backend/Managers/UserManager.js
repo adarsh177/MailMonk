@@ -4,7 +4,6 @@ const { MongoClient } = require("mongodb");
 const serviceAccount = require("../firebase_admin_privatekey.json");
 
 class UserManager{
-    AllGood = true;
 
     constructor(){
         admin.initializeApp({
@@ -27,7 +26,6 @@ class UserManager{
             console.log("Connected successfully to server: UserManager");
         }catch(ex){
             console.error('Error connecting to database(UserManager), ', ex);
-            AllGood = false;
         }
     }
 

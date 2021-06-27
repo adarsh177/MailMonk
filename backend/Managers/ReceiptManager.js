@@ -3,7 +3,6 @@ const { MongoClient, ObjectID } = require("mongodb");
 
 
 class ReceiptManager{
-    AllGood = true;
 
     constructor(){
         this.uri = "mongodb+srv://mailmonk-user:jKHLyStfxmt2qDU2@mailmonk-main-cluster.yub3v.mongodb.net/test";
@@ -23,7 +22,6 @@ class ReceiptManager{
             console.log("Connected successfully to server: ReceiptManager");
         }catch(ex){
             console.error('Error connecting to database(ReceiptManager), ', ex);
-            AllGood = false;
         }
     }
 
