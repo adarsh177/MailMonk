@@ -63,11 +63,32 @@ function setupExpressAndMulter(){
 }
 
 function handleAPICalls(){
-    app.options("*", (req, res) => {
+    app.options("/*", (req, res, next) => {
         res.setHeader("Access-Control-Allow-Headers", "firebaseauth");
         res.setHeader("Access-Control-Allow-Origin", "*");
-        res.status(200).send("");
+        next();
     });
+    app.get("/*", (req, res, next) => {
+        res.setHeader("Access-Control-Allow-Headers", "firebaseauth");
+        res.setHeader("Access-Control-Allow-Origin", "*");
+        next();
+    });
+    app.post("/*", (req, res, next) => {
+        res.setHeader("Access-Control-Allow-Headers", "firebaseauth");
+        res.setHeader("Access-Control-Allow-Origin", "*");
+        next();
+    });
+    app.delete("/*", (req, res, next) => {
+        res.setHeader("Access-Control-Allow-Headers", "firebaseauth");
+        res.setHeader("Access-Control-Allow-Origin", "*");
+        next();
+    });
+    app.put("/*", (req, res, next) => {
+        res.setHeader("Access-Control-Allow-Headers", "firebaseauth");
+        res.setHeader("Access-Control-Allow-Origin", "*");
+        next();
+    });
+    
     // Receipts API
     app.get('/receipts/:page?', VerifyUserMiddleware, (req, res) =>  {
         // Only returns
