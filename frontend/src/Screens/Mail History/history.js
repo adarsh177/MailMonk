@@ -1,5 +1,5 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, withRouter } from "react-router-dom";
 import {
     Navigation,
     MobileNavigationTop,
@@ -8,13 +8,47 @@ import {
 import Heading from "../../Components/heading/heading";
 import "./history.scss";
 import { historyData } from "../../Data/mail-history-data";
-const History = () => {
+import Loader from "../../Components/Loader";
+import FirebaseUtil from '../../Utils/FirebaseUtil';
+import firebase from 'firebase';
+import ReceiptAPIs from "../../APIs/ReceiptAPIs";
+
+async function loadReceipts(){
+    return await ReceiptAPIs.GetReceipts();
+}
+
+const History = (props) => {
+    const firebaseUtil = new FirebaseUtil();
+    const [showLoading, setShowLoading] = useState(true);
+    const [receipts, setReceipts] = useState([]);
+
+    useEffect(() => {
+        // Checking User
+        firebase.auth().onAuthStateChanged(async (user) => {
+          if(user == null){
+            props.history.push('/login');
+          }
+
+          // loading data
+          let rctList = await ReceiptAPIs.GetReceipts();
+          if(rctList == null){
+                // token expired
+                props.history.push('/login');
+                return;
+          }else{
+              setReceipts(rctList);
+          }
+          setShowLoading(false);
+        });
+      }, []);
+
   return (
     <div className="history">
+        <Loader show={showLoading} />
       <Navigation />
       <MobileNavigationTop />
       <div className="main">
-        <Heading
+        <Heading 
           value="Mail History"
           tooltip="List of all previous direct mails and campaigns"
         />
@@ -60,4 +94,4 @@ const History = () => {
     );
 };
 
-export default History;
+export default withRouter(History);

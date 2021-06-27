@@ -2,8 +2,14 @@ import React, { useState } from "react";
 import logo from "../../media/logo.png";
 import "./scss/navigation.scss";
 import { Link } from "react-router-dom";
+import firebase from 'firebase';
 
-export const Navigation = () => {
+async function logoutUser(history){
+  await firebase.auth().signOut();
+  history.push('/');
+}
+
+export const Navigation = (props) => {
   const [slide, setSlide] = useState("burger");
   const showSlide = () => {
     setSlide("cross");
@@ -58,7 +64,7 @@ export const Navigation = () => {
             Contacts
           </div>
         </Link>
-        <div className="nav-logout">
+        <div className="nav-logout" onClick={() => logoutUser(props.routerHistory)}>
           <div className="nav-icon">
             <i class="fas fa-sign-out-alt"></i>
           </div>

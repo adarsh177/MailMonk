@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import logo from "../../Resources/MailMonk Without shadow.png";
 import { Link } from "react-router-dom";
 import "./home.css";
@@ -6,6 +6,11 @@ import "./home.css";
 import Landingimg from "../../Resources/Landingimage.svg";
 
 function Home() {
+
+  useEffect(() => {
+    document.title = "MailMonk - Best Free OpenSource mailing service"
+  }, []);
+  
   return (
     <div className="custom-flexbox">
       <div className="row">
@@ -16,9 +21,9 @@ function Home() {
             The trusted and the best platform for sending mails for campains and
             business purpose
           </p>
-          <button className="form-button custom-landing-button">
+          <Link to="/login" className="form-button custom-landing-button" style={{textDecoration: "none"}}>
             SignUp For Free
-          </button>
+          </Link>
           <p className="already-account-info">
             &#8226; Alreary have an account..{" "}
             <Link to="/login" className="Login-link">

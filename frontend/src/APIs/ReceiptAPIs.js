@@ -2,15 +2,15 @@ import axios from 'axios';
 import firebase from 'firebase';
 
 // API ENDPOINT
-const endpoint = "http://localhost:3500";
+const endpoint = "https://backendmailmonk.developersmonk.com";
 
 const ReceiptAPIs = {
-    GetReceipts: async (page) => {
+    GetReceipts: async () => {
         if(firebase.auth().currentUser == null) return null;
         
         let auth = 'Bearer ' + (await firebase.auth().currentUser.getIdToken());
         try{
-            let response = await axios.get(`${endpoint}/receipts/${page}`, {
+            let response = await axios.get(`${endpoint}/receipts`, {
                 headers: {
                     "Authorization": auth
                 }
