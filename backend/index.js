@@ -45,8 +45,8 @@ app.listen(3500, () => {
 function setupExpressAndMulter(){
     app.use(express.json());
     app.use(express.urlencoded({extended: true}));
-    app.use(cors());
-    app.options('*', cors());
+    app.use(cors({allowedHeaders: ["Authorization"]}));
+    app.options('*', cors({allowedHeaders: ["Authorization"]}));
     app.use(multer({
         storage: multer.diskStorage({
             destination: "./Uploads",
