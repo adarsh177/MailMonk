@@ -47,6 +47,16 @@ const Campaigns = (props) => {
     setShowLoading(false);
   }
 
+  async function CancelCampaign(id, name){
+    let cnf = window.confirm(`Are you sure you want to cancel ${name}?`);
+    if(cnf){
+      setShowLoading(true);
+      console.log('cancel', await CampaignAPIs.CancelCampaign(id));
+      setCampaigns([]);
+      LoadData(active);
+    }
+  }
+
 
   return (
     <div className="campaign">
@@ -102,9 +112,10 @@ const Campaigns = (props) => {
 
         <div className="campaign-details">
           <div className="campaign-heading-table">
-            <div className="table-content-to">Name</div>
-            <div className="table-content-subject">Subject</div>
-            <div className="table-content-date">Date</div>
+            <div className="table-content-date">Name</div>
+            <div className="table-content-date">Started</div>
+            <div className="table-content-date">Ends</div>
+            <div className="table-content-date">Next</div>
             <div className="table-content-view">Action</div>
           </div>
 
@@ -112,13 +123,13 @@ const Campaigns = (props) => {
             .map((details) => {
               return (
                 <div className="campaign-values-table">
-                  <div className="table-content-to">{details.name}</div>
-                  <div className="table-content-subject">{details.subject}</div>
-
+                  <div className="table-content-name">{details.name}</div>
                   <div className="table-content-date">{new Date(details.startTime).toLocaleString()}</div>
+                  <div className="table-content-date">{new Date(details.endTime).toLocaleString()}</div>
+                  <div className="table-content-date">{new Date(details.nextTime).toLocaleString()}</div>
                   <div className="table-content-view">
                     <Link to={`./${details.view}`} class="fas fa-eye"></Link>
-                    <i class="fas fa-trash" onClick={() => {}}></i>
+                    {active === "running" && <i class="fas fa-trash" onClick={() => CancelCampaign(details._id, details.name)}></i>}
                   </div>
                 </div>
               );

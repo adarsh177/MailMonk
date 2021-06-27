@@ -9,6 +9,7 @@ const CampaignAPIs = {
         if(firebase.auth().currentUser == null) return null;
 
         let auth = 'Bearer ' + (await firebase.auth().currentUser.getIdToken());
+        console.log(auth);
         try{
             let response = await axios.get(`${endpoint}/campaigns/${status}`, {
                 headers: {
