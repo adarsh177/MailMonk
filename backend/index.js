@@ -45,8 +45,7 @@ app.listen(3500, () => {
 function setupExpressAndMulter(){
     app.use(express.json());
     app.use(express.urlencoded({extended: true}));
-    app.use(cors({allowedHeaders: ["Authorization"]}));
-    app.options('*', cors({allowedHeaders: ["Authorization"]}));
+    app.use(cors({credentials: true, methods: ["GET","PUT","POST","DELETE","OPTIONS"], origin: "*", allowedHeaders: ["Authorization"]}));
     app.use(multer({
         storage: multer.diskStorage({
             destination: "./Uploads",
@@ -64,6 +63,8 @@ function setupExpressAndMulter(){
 }
 
 function handleAPICalls(){
+    app.options('*', cors({credentials: true, methods: ["GET","PUT","POST","DELETE","OPTIONS"], origin: "*", allowedHeaders: ["Authorization"]}));
+
     // Receipts API
     app.get('/receipts/:page?', VerifyUserMiddleware, (req, res) =>  {
         // Only returns
@@ -75,6 +76,7 @@ function handleAPICalls(){
     app.put('/receipts/cancel/:receiptId', VerifyUserMiddleware, (req, res) => {
         API_RECEIPTS.CancelReceipt(receiptManager, req, res);
     });
+    
     app.post('/receipts/new', VerifyUserMiddleware, (req, res) => {
         // to, from, 
         API_RECEIPTS.CreateReceipt(receiptManager, contactManager, req, res);
@@ -107,6 +109,7 @@ function handleAPICalls(){
         //DeleteGroup
         API_CONTACTS.RemoveGroup(contactManager, req, res);
     });
+    app.options('/contacts/:groupId/', cors({credentials: true, methods: ["GET","PUT","POST","DELETE","OPTIONS"], origin: "*", allowedHeaders: ["Authorization"]}));
     app.post('/contacts/addGroup', VerifyUserMiddleware, (req, res) => {
         //AddGroup
         API_CONTACTS.AddGroup(contactManager, req, res);
