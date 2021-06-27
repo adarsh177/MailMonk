@@ -115,7 +115,7 @@ function handleAPICalls(){
     })
 
     //Tracking Related
-    app.get('/images/dot.png', (req, res) => {
+    app.get('/track/:trackId', (req, res) => {
         API_TRACK.TrackIt(trackManager, req, res, logoData);
     });
 }

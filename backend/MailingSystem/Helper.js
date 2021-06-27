@@ -55,7 +55,7 @@ class Helper{
     }
 
     GetTrackerImage(id){
-        return `<br><img src="https://backendmailmonk.developersmonk.com/images/dot.png?tid=${id}" alt="Mail Sent using MailMonk" /><br><p>Mail sent using MailMonk. Timestamp: ${new Date().getTime()}</p>`;
+        return `<br><img src="https://backendmailmonk.developersmonk.com/track/${id}.png" alt="Mail Sent using MailMonk" /><br><p>Mail sent using MailMonk. Timestamp: ${new Date().getTime()}</p>`;
     }
 
     async sendMails(receipts = []){
