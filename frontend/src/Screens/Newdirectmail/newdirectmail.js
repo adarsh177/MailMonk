@@ -105,6 +105,7 @@ function Newdirectmail(props) {
             from: fromText,
             time: time
         };
+        console.log(data);
 
         setShowLoading(true);
         let rslt = await ReceiptAPIs.NewReceipt(data);
@@ -139,11 +140,11 @@ function Newdirectmail(props) {
                 valuesCc={recepientCc}
                 valuesBcc={recepientBcc}
                 onSave={(data, target) => {
-                    if(target == "to")
+                    if(target === "to")
                         setRecepientTo(data);
-                    if(target == "cc")
+                    if(target === "cc")
                         setRecepientCc(data);
-                    if(target == "bcc")
+                    if(target === "bcc")
                         setRecepientBcc(data);
                     
                     setShowContactTarget(null);

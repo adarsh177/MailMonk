@@ -58,7 +58,7 @@ const DashBoard = (props) => {
       <div className="main-dashboard">
         <div className="top-add-buttons">
           <Add value="Campaign" />
-          <Add value="Direct Mail" />
+          <Add link="newmail" value="Direct Mail" />
         </div>
 
         {dashboard.totalMails == 0 && (

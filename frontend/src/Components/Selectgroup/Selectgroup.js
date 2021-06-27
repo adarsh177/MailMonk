@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./Selectgroup.css";
 
 function Selectgroup(props) {
-    const values = props.target == "to" ? props.valuesTo : (props.target == "cc" ? props.valuesCc : props.valuesBcc);
+    const values = props.target === "to" ? props.valuesTo : (props.target === "cc" ? props.valuesCc : props.valuesBcc);
     const [data, setData] = useState(values);
     const [customText, setCustomText] = useState(values.filter((el) => el.startsWith("mail:")).join(', '));
 
@@ -23,8 +23,8 @@ function Selectgroup(props) {
         let emails = custom.split(',');
         emails.forEach(element => {
             let el = element.trim().replace('\n', '');
-            if(el.length > 0)
-                data.push(`email:${element}`);
+            if(el.length > 0 && !data.includes(`mail:${element}`))
+                data.push(`mail:${element}`);
         });
         console.log(data);
         props.onSave(data, props.target);
