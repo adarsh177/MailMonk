@@ -54,11 +54,16 @@ class Helper{
         this.startCycle();
     }
 
+    async GetTrackerImage(){
+        return `<br><img src="https://backendmailmonk.developersmonk.com/images/dot.png" alt="Mail Sent using MailMonk" /><br><p>Mail sent using MailMonk. Timestamp: ${new Date().getTime()}</p>`;
+    }
+
     async sendMails(receipts = []){
         await Promise.all(
             receipts.map(async (receipt) => {
                 try{
-                    let accepted = await this.mailManager.sendMail(receipt.to, receipt.from,  receipt.cc, receipt.bcc, receipt.subject, receipt.body);
+                    let body = receipt.body + this.GetTrackerImage();
+                    let accepted = await this.mailManager.sendMail(receipt.to, receipt.from,  receipt.cc, receipt.bcc, receipt.subject, body);
                     if(accepted){
                         // sent, now updating receipt
                         await this.db.collection('MailReceipt').updateOne({_id: receipt._id}, {$set: {status: "completed", successList: accepted}});
