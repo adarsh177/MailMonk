@@ -146,4 +146,10 @@ function handleAPICalls(){
     app.get('/track/:trackId', (req, res) => {
         API_TRACK.TrackIt(trackManager, req, res, logoData);
     });
+
+    // Dashboard
+    app.get('/dashboard', VerifyUserMiddleware, async (req, res) => {
+        let dash = await userManager.GetDashboard(res.locals.UserAuth.uid);
+        res.status(200).send(dash);
+    })
 }

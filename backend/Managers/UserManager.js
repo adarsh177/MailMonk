@@ -29,6 +29,36 @@ class UserManager{
         }
     }
 
+    // lastMailViews, lastMailRecepients, activeCampaigns, totalMails 
+    async GetDashboard(userId){
+        let result = {};
+
+        try{
+            let mails = this.db.collection("MailReceipt").find({userId: userId});
+            result['totalMails'] = await mails.count();
+            let lastMailCursor = this.db.collection("MailReceipt").find({userId: userId, status: "completed"}, {sort: {time: -1}, limit: 1, projection: {views: 1, successList: 1}});
+            let lastMail = await lastMailCursor.toArray();
+            if(lastMail && lastMail.length > 0){
+                lastMail = lastMail[0];
+                result['lastMailViews'] = lastMail.views;
+                result['lastMailRecepientsCount'] = lastMail.successList.length;
+            }else{
+                result['lastMailViews'] = 0;
+                result['lastMailRecepients'] = 0;
+            }
+            let activeCampaignsCursor = this.db.collection("Campaigns").find({userId: userId, status: "running"});
+            result['activeCampaigns'] = await activeCampaignsCursor.count();
+        }catch(ex){
+            console.log('Error in GetDashboard');
+            
+            result['lastMailViews'] = 0;
+            result['lastMailRecepientsCount'] = 0;
+            result['lastMailViews'] = 0;
+            result['lastMailRecepients'] = 0;
+        }
+        return result;
+    }
+
     // returns an object UserAuth with properties:
     //  loggedIn, isNewUser, email, userId
     async VerifyUser(req, res, next){
