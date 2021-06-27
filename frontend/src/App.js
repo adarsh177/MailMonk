@@ -1,11 +1,14 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Home from "./Screens/Home/home";
+import DashBoard from "./Screens/Dashboard/dashboard";
 import Newdirectmail from "./Screens/Newdirectmail/newdirectmail";
 import Newcampaign from "./Screens/Newcampaign/newcampaign";
 import Campaigndetail from "./Screens/Campaigndetail/campaigndetail";
 import History from "./Screens/Mail History/history";
+import Campaigns from "./Screens/Campaigns/campaign";
+import Contacts from "./Screens/Contacts/contact";
 import LoginScreen from "./Screens/LoginScreen/LoginScreen";
+import Home from "./Screens/Home/home"
 
 function App() {
     return (
@@ -29,9 +32,17 @@ function App() {
                 <Route exact path="/campaigndetails">
                     <Campaigndetail />
                 </Route>
+                <Route exact path="/dashboard">
+          <DashBoard />
+        </Route>
+        <Route exact path="/campaign">
+          <Campaigns />
+        </Route>
+        <Route exact path="/contacts">
+          <Contacts />
+        </Route>
             </Switch>
         </Router>
     );
-}
-
+    } 
 export default App;

@@ -1,0 +1,144 @@
+.dashboard {
+  display: grid;
+  grid-template-columns: 70px auto;
+  .main-dashboard {
+    grid-column: 2/3;
+    max-height: 100vh;
+    overflow-y: auto;
+    .no-email-yet {
+      display: flex;
+      justify-content: center;
+      img {
+        width: 400px;
+      }
+    }
+    .top-add-buttons {
+      display: flex;
+      justify-content: end;
+      margin: 25px;
+      .add-button {
+        margin-right: 36px;
+      }
+    }
+    .stats-dashboard {
+      display: flex;
+      justify-content: space-evenly;
+      .dashboard-stats {
+        margin-top: 30px;
+      }
+    }
+    .upcoming-campaigns {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 40px;
+      .upcoming-campaigns-title {
+        font-size: 36px;
+        color: #03045e;
+        font-weight: 600;
+      }
+      .upcoming-campaign-details {
+        width: 80%;
+        overflow-x: auto;
+        font-size: 18px;
+        margin-top: 15px;
+        .upcoming-campaign-heading-table {
+          border-bottom: 1px solid black;
+          font-weight: bold;
+        }
+
+        .upcoming-campaign-heading-table,
+        .upcoming-campaign-values-table {
+          display: flex;
+          width: 100%;
+
+          min-width: 360px;
+
+          div {
+            padding: 15px;
+          }
+          .table-content-to {
+            width: 30%;
+          }
+
+          .table-content-date {
+            width: 40%;
+          }
+          .table-content-view {
+            width: 30%;
+            text-align: center;
+            padding-left: 0;
+
+            padding-right: 0;
+
+            .fas {
+              padding: 0 7px;
+            }
+            .fa-eye {
+              text-decoration: none;
+              color: #03045e;
+              &:hover {
+                color: #7e7eac;
+              }
+            }
+            .fa-trash {
+              color: #c30f0f;
+              &:hover {
+                cursor: pointer;
+                color: #ee4a4a;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media all and (max-width: 1000px) {
+  .dashboard {
+    .main-dashboard {
+      .stats-dashboard {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .dashboard-stats {
+          margin-top: 36px;
+        }
+      }
+    }
+  }
+}
+@media all and (max-width: 500px) {
+  .dashboard {
+    display: flex;
+    flex-direction: column;
+    .main-dashboard {
+      max-height: none;
+      .no-email-yet {
+        img {
+          width: 300px;
+        }
+      }
+      .upcoming-campaigns {
+        .upcoming-campaigns-title {
+          font-size: 26px;
+        }
+        .upcoming-campaign-details {
+          width: 95%;
+          font-size: 14px;
+        }
+      }
+      .top-add-buttons {
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 0;
+      }
+    }
+    .footer {
+      position: fixed;
+      width: 100%;
+      bottom: 0;
+    }
+  }
+}

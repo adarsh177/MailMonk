@@ -1,0 +1,22 @@
+.add-button {
+  color: white;
+  font-weight: bold;
+  background-color: #03045e;
+  width: 150px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  &:hover {
+    color: #c6c6da;
+  }
+}
+@media all and (max-width: 500px) {
+  .add-button {
+    width: 160px;
+    height: 45px;
+    margin-right: 0px;
+    margin-bottom: 10px;
+  }
+}

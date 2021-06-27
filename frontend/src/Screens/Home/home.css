@@ -1,80 +1,80 @@
 .logo-mailmonk-50px {
-    width: 50px;
-    border-radius: 5px;
+  width: 50px;
+  border-radius: 5px;
 }
 .Landing-heading {
-    font-size: 84px;
-    font-weight: 600;
-    color: #03045e;
-    margin: 30px 0;
+  font-size: 84px;
+  font-weight: 600;
+  color: #03045e;
+  margin: 30px 0;
 }
 .tag-line {
-    font-size: 24px;
-    font-weight: 400;
-    color: #03045e;
-    margin: 40px 0;
+  font-size: 24px;
+  font-weight: 400;
+  color: #03045e;
+  margin: 40px 0;
 }
 .custom-landing-button {
-    margin: 0;
-    width: 250px;
+  margin: 0;
+  width: 250px;
 }
 .already-account-info {
-    font-size: 16px;
-    line-height: 40px;
-    color: #464646;
-    margin: 10px 0;
+  font-size: 16px;
+  line-height: 40px;
+  color: #464646;
+  margin: 10px 0;
 }
 .Login-link {
-    text-decoration: none;
-    color: #03045e;
-    font-weight: 600;
+  text-decoration: none;
+  color: #03045e;
+  font-weight: 600;
 }
 .custom-flexbox {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .Landing-image-section {
-    height: 100%;
-    background: url("../../Resources/Landingbackground.svg") no-repeat;
-    background-size: cover;
+  height: 100%;
+  background: url("../../Resources/Landingbackground.svg") no-repeat;
+  background-size: cover;
 }
 .custom-padding {
-    padding: 0 0 0 10%;
+  padding: 0 0 0 10%;
 }
 .landing-illustration {
-    width: 65%;
-    place-self: center;
+  width: 65%;
+  place-self: center;
 }
 
 @media screen and (max-width: 992px) {
-    .displaynone {
-        display: none;
-    }
-    .mediacssBranding {
-        text-align: center;
-        padding: 0 50px;
-        place-content: center;
-        width: 100%;
-        background: url("../../Resources/Landingbackground.svg") no-repeat;
-        background-size: cover;
-    }
-    .custom-landing-button,
-    .logo-mailmonk-50px {
-        margin: 0 auto;
-    }
-    .logo-mailmonk-50px {
-        width: 80px;
-    }
+  .displaynone {
+    display: none;
+  }
+  .mediacssBranding {
+    text-align: center;
+    padding: 0 50px;
+    place-content: center;
+    width: 100%;
+    background: url("../../Resources/Landingbackground.svg") no-repeat;
+    background-size: cover;
+  }
+  .custom-landing-button,
+  .logo-mailmonk-50px {
+    margin: 0 auto;
+  }
+  .logo-mailmonk-50px {
+    width: 80px;
+  }
 }
 @media screen and (max-width: 500px) {
-    .Landing-heading {
-        font-size: 54px;
-        margin: 20px 0;
-    }
-    .tag-line {
-        font-size: 16px;
-        margin: 20px 0;
-    }
+  .Landing-heading {
+    font-size: 54px;
+    margin: 20px 0;
+  }
+  .tag-line {
+    font-size: 16px;
+    margin: 20px 0;
+  }
 }
