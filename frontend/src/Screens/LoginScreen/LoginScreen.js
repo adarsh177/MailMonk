@@ -55,7 +55,7 @@ function LoginScreen(props){
         
         firebase.auth().onAuthStateChanged((user) => {
             if(user !== null)
-                props.history.push('/playground');
+                props.history.push('/dashboard');
         });
     }, []);
 

@@ -2,7 +2,7 @@ import axios from 'axios';
 import firebase from 'firebase';
 
 // API ENDPOINT
-const endpoint = "http://localhost:3500";
+const endpoint = "https://backendmailmonk.developersmonk.com";
 
 const CampaignAPIs = {
     GetCampaigns: async (page) => {

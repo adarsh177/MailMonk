@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import noEmail from "../../Resources/no-emails.svg";
 import {
   Navigation,
@@ -9,11 +9,30 @@ import "./dashboard.scss";
 import Add from "../../Components/add/add";
 import Stats from "../../Components/stats/stats";
 import { campaignData } from "../../Data/mail-campaign-data ";
-import { Link } from "react-router-dom";
-const DashBoard = () => {
+import { Link, withRouter } from "react-router-dom";
+import FirebaseUtil from '../../Utils/FirebaseUtil';
+import firebase from 'firebase';
+import Loader from "../../Components/Loader";
+
+
+const DashBoard = (props) => {
+  const firebaseUtil = new FirebaseUtil();
+  const [showLoading, setShowLoading] = useState(true);
+
+  useEffect(() => {
+    // Checking User
+    firebase.auth().onAuthStateChanged((user) => {
+      if(user == null){
+        props.history.push('/login');
+      }
+      setShowLoading(false);
+    });
+  }, []);
+
   return (
     <div className="dashboard">
-      <Navigation />
+      <Loader show={showLoading} />
+      <Navigation routerHistory={props.history} />
       <MobileNavigationTop />
       <div className="main-dashboard">
         <div className="top-add-buttons">
@@ -78,4 +97,4 @@ const DashBoard = () => {
   );
 };
 
-export default DashBoard;
+export default withRouter(DashBoard);
