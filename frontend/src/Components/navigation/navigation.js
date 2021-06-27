@@ -124,18 +124,34 @@ export const MobileNavigationBottom = () => {
             <div className="mobile-navigation">
                 <div className="bottom">
                     <div className="mobile-nav-links">
-                        <Link className="mobile-nav-icon">
+                        <NavLink
+                            activeClassName="activenav"
+                            className="mobile-nav-icon"
+                            to="/dashboard"
+                        >
                             <i class="fas fa-home"></i>
-                        </Link>
-                        <Link className="mobile-nav-icon">
+                        </NavLink>
+                        <NavLink
+                            activeClassName="activenav"
+                            className="mobile-nav-icon"
+                            to="/history"
+                        >
                             <i class="fas fa-paper-plane"></i>
-                        </Link>
-                        <Link className="mobile-nav-icon">
+                        </NavLink>
+                        <NavLink
+                            activeClassName="activenav"
+                            className="mobile-nav-icon"
+                            to="/campaign"
+                        >
                             <i class="fas fa-rocket"></i>
-                        </Link>
-                        <Link className="mobile-nav-icon">
+                        </NavLink>
+                        <NavLink
+                            activeClassName="activenav"
+                            className="mobile-nav-icon"
+                            to="/contacts"
+                        >
                             <i class="fas fa-user"></i>
-                        </Link>
+                        </NavLink>
                     </div>
                 </div>
             </div>
