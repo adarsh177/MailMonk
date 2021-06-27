@@ -1,6 +1,6 @@
 module.exports = {
     GetGroups: async(contactManager, req, res) => {
-        let results = await contactManager.GetGroups(res.locals.UserAuth.uid, groupId);
+        let results = await contactManager.GetGroups(res.locals.UserAuth.uid);
         res.status(200).send({
             groups: results
         });
