@@ -93,6 +93,9 @@ function handleAPICalls(){
 
 
     // Contacts API
+    app.get('/contacts/groups', VerifyUserMiddleware, (req, res) => {
+        API_CONTACTS.GetGroups(contactManager, req, res);
+    });
     app.get('/contacts/:groupId/', VerifyUserMiddleware, (req, res) => {
         //GetContacts
         API_CONTACTS.GetContacts(contactManager, req, res);
@@ -108,7 +111,7 @@ function handleAPICalls(){
     app.post('/contacts/:groupId', VerifyUserMiddleware, (req, res) => {
         //AddContacts
         API_CONTACTS.AddContact(contactManager, req, res);
-    })
+    });
 
     //Tracking Related
     app.get('/track/:trackId', (req, res) => {

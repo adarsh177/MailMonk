@@ -1,4 +1,10 @@
 module.exports = {
+    GetGroups: async(contactManager, req, res) => {
+        let results = await contactManager.GetGroups(res.locals.UserAuth.uid, groupId);
+        res.status(200).send({
+            groups: results
+        });
+    },
     GetContacts: async(contactManager, req, res) => {
         let groupId = req.params.groupId;
         let results = await contactManager.GetContact(res.locals.UserAuth.uid, groupId);

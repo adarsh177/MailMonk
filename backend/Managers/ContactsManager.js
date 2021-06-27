@@ -63,10 +63,17 @@ class ContactsManager{
     }
 
     async RemoveGroup(userId, groupId){
-        await this.ContactCollection.updateOne({userId, userId}, {$pull: {groups: {id: groupId}}});
+        await this.ContactCollection.updateOne({userId: userId}, {$pull: {groups: {id: groupId}}});
         let query = {};
         query[groupId] = true;
-        await this.ContactCollection.updateOne({userId, userId}, {$unset: query});
+        await this.ContactCollection.updateOne({userId: userId}, {$unset: query});
+    }
+
+    async GetGroups(userId){
+        let group = await this.ContactCollection.findOne({userId: userId}, {projection: {groups: 1}});
+        if(group){
+            return group['groups'];
+        }else return [];
     }
 
     
