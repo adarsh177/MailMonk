@@ -12,7 +12,7 @@ const CampaignAPIs = {
         try{
             let response = await axios.get(`${endpoint}/campaigns/${page}`, {
                 headers: {
-                    "firebaseAuth": auth
+                    "Authorization": auth
                 }
             });
             if(response.status == 200)
@@ -34,7 +34,7 @@ const CampaignAPIs = {
         try{
             let response = await axios.get(`${endpoint}/campaigns/single/${campaignId}`, {
                 headers: {
-                    "firebaseAuth": auth
+                    "Authorization": auth
                 }
             });
             if(response.status == 200)
@@ -56,7 +56,7 @@ const CampaignAPIs = {
         try{
             let response = await axios.put(`${endpoint}/campaigns/cancel/${campaignId}`, {}, {
                 headers: {
-                    "firebaseAuth": auth
+                    "Authorization": auth
                 }
             });
             if(response.status == 200)
@@ -80,7 +80,7 @@ const CampaignAPIs = {
                 campaign: data
             }, {
                 headers: {
-                    "firebaseAuth": auth
+                    "Authorization": auth
                 }
             });
             if(response.status == 200)

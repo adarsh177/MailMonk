@@ -12,7 +12,7 @@ const ContactAPIs = {
         try{
             let response = await axios.get(`${endpoint}/contacts/groups`, {
                 headers: {
-                    "firebaseAuth": auth
+                    "Authorization": auth
                 }
             });
             if(response.status == 200)
@@ -34,7 +34,7 @@ const ContactAPIs = {
         try{
             let response = await axios.get(`${endpoint}/contacts/group/${groupId}`, {
                 headers: {
-                    "firebaseAuth": auth
+                    "Authorization": auth
                 }
             });
             if(response.status == 200)
@@ -55,7 +55,7 @@ const ContactAPIs = {
         try{
             let response = await axios.delete(`${endpoint}/contacts/${groupId}`, {
                 headers: {
-                    "firebaseAuth": auth
+                    "Authorization": auth
                 }
             });
             if(response.status == 200)
@@ -79,7 +79,7 @@ const ContactAPIs = {
                 groupName: groupName
             }, {
                 headers: {
-                    "firebaseAuth": auth
+                    "Authorization": auth
                 }
             });
 
@@ -103,7 +103,7 @@ const ContactAPIs = {
                 contacts: contactsList
             }, {
                 headers: {
-                    "firebaseAuth": auth
+                    "Authorization": auth
                 }
             });
 
