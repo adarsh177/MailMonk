@@ -14,9 +14,9 @@
 }
 @media all and (max-width: 500px) {
   .add-button {
-    width: 160px;
+    width: 90%;
     height: 45px;
-    margin-right: 0px;
+    margin-right: 0px !important;
     margin-bottom: 10px;
   }
 }

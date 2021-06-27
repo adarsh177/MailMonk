@@ -10,11 +10,11 @@ import Add from "../../Components/add/add";
 import Stats from "../../Components/stats/stats";
 import { campaignData } from "../../Data/mail-campaign-data ";
 import { Link, withRouter } from "react-router-dom";
-import FirebaseUtil from '../../Utils/FirebaseUtil';
-import firebase from 'firebase';
+import FirebaseUtil from "../../Utils/FirebaseUtil";
+import firebase from "firebase";
 import Loader from "../../Components/Loader";
 import DashboardAPIs from "../../APIs/DashboardAPIs";
-
+import Team from "../../Components/teammembers/teammembers";
 
 const DashBoard = (props) => {
   const firebaseUtil = new FirebaseUtil();
@@ -23,27 +23,27 @@ const DashBoard = (props) => {
     totalMails: -1,
     lastMailViews: 0,
     lastMailRecepientsCount: 0,
-    activeCampaigns: 0
+    activeCampaigns: 0,
   });
 
   useEffect(() => {
     // Checking User
     firebase.auth().onAuthStateChanged((user) => {
-      if(user == null){
-        props.history.push('/login');
+      if (user == null) {
+        props.history.push("/login");
       }
       LoadData();
     });
   }, []);
 
-  async function LoadData(){
+  async function LoadData() {
     let dash = await DashboardAPIs.GetDashboard();
-    if(dash){
+    if (dash) {
       setDashboard(dash);
-    }else{
+    } else {
       setDashboard({
         ...dashboard,
-        totalMails: 0
+        totalMails: 0,
       });
     }
     console.log(dash);
@@ -61,29 +61,35 @@ const DashBoard = (props) => {
           <Add value="Direct Mail" />
         </div>
 
-        {dashboard.totalMails == 0 && 
-        <div className="no-email-yet">
-          <img src={noEmail} alt="" />
-        </div>}
+        {dashboard.totalMails == 0 && (
+          <div className="no-email-yet">
+            <img src={noEmail} alt="" />
+          </div>
+        )}
 
-        {dashboard.totalMails > 0 && 
-        <div className="stats-dashboard">
-        <Stats
-          head="Statistics"
-          num1={dashboard.activeCampaigns}
-          name1="Active Campaigns"
-          num2={dashboard.totalMails}
-          name2="Total Mail Sent"
-        />
-        <Stats
-          head="Last Mail"
-          num1={100 * ((dashboard.lastMailViews * 1.0) / dashboard.lastMailRecepientsCount)}
-          name1="CTR %"
-          subname1="(Click Through Rate)"
-          num2={dashboard.lastMailViews}
-          name2="Views"
-        />
-      </div>}
+        {dashboard.totalMails > 0 && (
+          <div className="stats-dashboard">
+            <Stats
+              head="Statistics"
+              num1={dashboard.activeCampaigns}
+              name1="Active Campaigns"
+              num2={dashboard.totalMails}
+              name2="Total Mail Sent"
+            />
+            <Stats
+              head="Last Mail"
+              num1={
+                100 *
+                ((dashboard.lastMailViews * 1.0) /
+                  dashboard.lastMailRecepientsCount)
+              }
+              name1="CTR %"
+              subname1="(Click Through Rate)"
+              num2={dashboard.lastMailViews}
+              name2="Views"
+            />
+          </div>
+        )}
 
         {/* <div className="upcoming-campaigns">
           <h2 className="upcoming-campaigns-title">Upcoming Campaigns</h2>
@@ -116,6 +122,7 @@ const DashBoard = (props) => {
         </div> */}
       </div>
       <div className="footer">
+        <Team />
         <MobileNavigationBottom />
       </div>
     </div>
