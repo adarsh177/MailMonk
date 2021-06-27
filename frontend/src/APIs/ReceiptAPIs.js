@@ -12,7 +12,7 @@ const ReceiptAPIs = {
         try{
             let response = await axios.get(`${endpoint}/receipts`, {
                 headers: {
-                    "Authorization": auth
+                    "firebaseAuth": auth
                 }
             });
             if(response.status == 200)
@@ -33,7 +33,7 @@ const ReceiptAPIs = {
         try{
             let response = await axios.get(`${endpoint}/receipts/single/${receiptId}`, {
                 headers: {
-                    "Authorization": auth
+                    "firebaseAuth": auth
                 }
             });
             if(response.status == 200)
@@ -55,7 +55,7 @@ const ReceiptAPIs = {
         try{
             let response = await axios.put(`${endpoint}/receipts/cancel/${receiptId}`, {}, {
                 headers: {
-                    "Authorization": auth
+                    "firebaseAuth": auth
                 }
             });
 
@@ -79,7 +79,7 @@ const ReceiptAPIs = {
                 receipt: data
             }, {
                 headers: {
-                    "Authorization": auth
+                    "firebaseAuth": auth
                 }
             });
 
