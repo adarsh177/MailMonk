@@ -21,6 +21,8 @@ const API_TRACK = require('./Endpoints/Track');
 // Variables
 const mailManager = new MailManager();
 const userManager = new UserManager();
+const contactManager = new ContactsManager();
+const receiptManager = new ReceiptManager();
 let VerifyUserMiddleware = (req, res, next) => {
     userManager.VerifyUser(req, res, next);
 }
@@ -55,22 +57,27 @@ function setupExpressAndMulter(){
 }
 
 function handleAPICalls(){
-    // Direct Mail API
-    app.get('/dm/getDraft', VerifyUserMiddleware, (req, res) => {
-        
-    });
-
     // Receipts API
-    app.get('/receipts', VerifyUserMiddleware, async (req, res) =>  {
-        res.send("Done!!");
+    app.get('/receipts/:page', VerifyUserMiddleware, (req, res) =>  {
+        // Only returns
+        API_RECEIPTS.GetReceipts(receiptManager, req, res);
     });
-    app.get('/receipts/:receiptId', VerifyUserMiddleware, (req, res) => {
-        
+    app.get('/receipts/single/:receiptId', VerifyUserMiddleware, (req, res) => {
+        API_RECEIPTS.GetOneReceipt(receiptManager, req, res);
+    });
+    app.put('/receipts/:receiptId', VerifyUserMiddleware, (req, res) => {
+        API_RECEIPTS.CancelReceipt(receiptManager, req, res);
+    });
+    app.post('/receipts/new', VerifyUserMiddleware, (req, res) => {
+        // to, from, 
+        API_RECEIPTS.CreateReceipt(receiptManager, contactManager, req, res);
     });
 
     // Campaign API
-    app.get('/campaign', VerifyUserMiddleware, (req, res) => {
-
+    app.post('/campaign', VerifyUserMiddleware, async (req, res) => {
+        res.status(200).send({
+            emails: await contactManager.ResolveReceipientList(res.locals.UserAuth.uid, req.body.to)
+        });
     });
     app.get('/campaign/:campaignId', VerifyUserMiddleware, (req, res) => {
 
@@ -81,21 +88,23 @@ function handleAPICalls(){
     app.post('/campaign/new', VerifyUserMiddleware, (req, res) => {
 
     });
-    app.get('/campaign/draft', VerifyUserMiddleware, (req, res) => {
 
-    });
 
     // Contacts API
-    app.get('/contacts/:groupId', VerifyUserMiddleware, (req, res) => {
-
+    app.get('/contacts/:groupId/', VerifyUserMiddleware, (req, res) => {
+        //GetContacts
+        API_CONTACTS.GetContacts(contactManager, req, res);
     });
-    app.delete('/contacts/:groupId/:contactId', VerifyUserMiddleware, (req, res) => {
-
+    app.delete('/contacts/:groupId/', VerifyUserMiddleware, (req, res) => {
+        //DeleteGroup
+        API_CONTACTS.RemoveGroup(contactManager, req, res);
     });
-    app.put('/contacts/:groupId/:contactId', VerifyUserMiddleware, (req, res) => {
-
+    app.post('/contacts/addGroup', VerifyUserMiddleware, (req, res) => {
+        //AddGroup
+        API_CONTACTS.AddGroup(contactManager, req, res);
     });
-    app.post('/contacts/add', VerifyUserMiddleware, (req, res) => {
-
-    });
+    app.post('/contacts/:groupId', VerifyUserMiddleware, (req, res) => {
+        //AddContacts
+        API_CONTACTS.AddContact(contactManager, req, res);
+    })
 }

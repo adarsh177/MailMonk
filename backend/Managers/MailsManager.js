@@ -12,7 +12,6 @@ class MailsManager{
             host: config.mailHost,
             pool: true,
             maxConnections: 10,
-            maxMessages: 150,
             port: config.mailPort,
             secure: true, // true for 465, false for other ports
             auth: {
@@ -24,19 +23,23 @@ class MailsManager{
         console.log('Connected successfully to server: MailsManager');
     }
 
-    sendMail(to, subject, body, bodyHTML, from = 'Developers Monk'){
-        // send mail with defined transport object
-        this.mail.sendMail({
-            from: `"${from}" <admin@developersmonk.com>`,
-            to: to,
-            subject: subject,
-            text: body,
-            html: bodyHTML
-        }, (err, info) => {
-            if(err != null){
-                console.log('Error Sending Mail', err);
-            }
-        });
+    // returns list of accepted addresses
+    async sendMail(to, from = 'Developers Monk', cc = [], bcc = [], subject, bodyHTML){
+        try{
+            // send mail with defined transport object
+            let rslt = await this.mail.sendMail({
+                            from: `"${from}" <${config.mailUsername}>`,
+                            to: to,
+                            cc: cc,
+                            bcc: bcc,
+                            subject: subject,
+                            html: bodyHTML
+                        });
+            return rslt.accepted;
+        }catch(ex){
+            console.log('Error Sending Mail', ex);
+            return null;
+        }
     }
 }
 
