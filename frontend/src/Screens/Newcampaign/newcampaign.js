@@ -70,7 +70,7 @@ function Newcampaign() {
                     <div>
                         <form>
                             <div className="row space-bw-rows">
-                                <div className="col-md-4 col-sm-12">
+                                <div className="col-md-4 col-sm-12 space-bw-rows">
                                     <input
                                         onSelect={alertit}
                                         className="inputfield-form"
@@ -79,7 +79,7 @@ function Newcampaign() {
                                         name="to"
                                     />
                                 </div>
-                                <div className="col-md-4 col-sm-12">
+                                <div className="col-md-4 col-sm-12 space-bw-rows">
                                     <input
                                         onSelect={alertit}
                                         className="inputfield-form"
@@ -88,7 +88,7 @@ function Newcampaign() {
                                         name="cc"
                                     />
                                 </div>
-                                <div className="col-md-4 col-sm-12">
+                                <div className="col-md-4 col-sm-12 space-bw-rows">
                                     <input
                                         onSelect={alertit}
                                         className="inputfield-form"
@@ -109,7 +109,7 @@ function Newcampaign() {
                                 </div>
                             </div>
                             <div className="row">
-                                <div className="col-lg-8 flex-container flex-start-element">
+                                <div className="col-lg-8 flex-container flex-start-element  space-bw-rows media-flex-center">
                                     <button
                                         onClick={handleStartDatetime}
                                         className="form-button"
@@ -148,7 +148,7 @@ function Newcampaign() {
                                         title="Select a campaign end date"
                                     />
                                 </div>
-                                <div className="col-lg-4 flex-container ">
+                                <div className="col-lg-4 flex-container flex-end-elements media-flex-center">
                                     <form className="flex-container">
                                         <div className="col-lg-8">
                                             <label
@@ -161,28 +161,34 @@ function Newcampaign() {
                                                 type="text"
                                                 class="form-control"
                                                 id="specificSizeInputName"
-                                                placeholder="Insert Intervals (e.g. 5)"
+                                                placeholder="Mail Intervals (e.g. 5)"
                                             />
                                         </div>
-                                        <label
-                                            class="visually-hidden"
-                                            for="specificSizeSelect"
-                                        >
-                                            Units
-                                        </label>
-                                        <select
-                                            class="form-select"
-                                            id="specificSizeSelect"
-                                        >
-                                            <option selected>Unit</option>
-                                            <option value="1">Second</option>
-                                            <option value="2">Minute</option>
-                                            <option value="3">Hour</option>
-                                            <option value="4">Days</option>
-                                            <option value="5">Week</option>
-                                            <option value="6">Month</option>
-                                            <option value="7">Years</option>
-                                        </select>
+                                        <div className="col-lg-4">
+                                            <label
+                                                class="visually-hidden"
+                                                for="specificSizeSelect"
+                                            >
+                                                Units
+                                            </label>
+                                            <select
+                                                class="form-select"
+                                                id="specificSizeSelect"
+                                            >
+                                                <option selected>Unit</option>
+                                                <option value="1">
+                                                    Second
+                                                </option>
+                                                <option value="2">
+                                                    Minute
+                                                </option>
+                                                <option value="3">Hour</option>
+                                                <option value="4">Days</option>
+                                                <option value="5">Week</option>
+                                                <option value="6">Month</option>
+                                                <option value="7">Years</option>
+                                            </select>
+                                        </div>
                                     </form>
                                 </div>
                             </div>
@@ -218,7 +224,7 @@ function Newcampaign() {
                                 </button>
                             </div>
                             <div className="row space-bw-rows flex-container">
-                                <div className="col-lg-3 col-sm-12 attachment-container">
+                                <div className="col-lg-6 col-sm-12 attachment-container media-flex-center space-bw-rows">
                                     <button
                                         onClick={handleAttchment}
                                         className=" attachment-button"
@@ -234,7 +240,7 @@ function Newcampaign() {
                                         Attachment (upto 10MB){" "}
                                     </label>
                                 </div>
-                                <div className="col-lg-8 col-sm-12 flex-container flex-end-elements">
+                                <div className="col-lg-6 col-sm-12 flex-container flex-end-elements media-flex-center media-margin space-bw-rows">
                                     <button className="form-button stroke-button">
                                         Cancel
                                     </button>

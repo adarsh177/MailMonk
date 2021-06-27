@@ -19,7 +19,6 @@ function App() {
                 </Route>
                 <Route exact path="/history">
                     <History />
-                    <Home />
                 </Route>
                 <Route exact path="/login">
                     <LoginScreen />

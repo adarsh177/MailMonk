@@ -51,6 +51,9 @@ body {
 .form-button:hover {
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
+.icon-button {
+    width: 170px;
+}
 .stroke-button {
     background-color: #fff;
     color: #03045e;
@@ -79,4 +82,18 @@ body {
 }
 .react-datepicker-popper {
     z-index: 2 !important;
+}
+.flex-end-elements {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+@media screen and (max-width: 992px) {
+    .icon-button {
+        min-width: 110px;
+        margin: 0 10px;
+        font-size: 16px;
+        padding: 10px;
+    }
 }
