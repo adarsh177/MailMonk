@@ -31,7 +31,7 @@ const handleAttchment = (e) => {
 };
 function Newdirectmail() {
     const alertit = () => {
-        alert("hi");
+        alert("Add Group selection popup here");
     };
 
     // Tiny text editor log funtion
@@ -63,8 +63,16 @@ function Newdirectmail() {
                 <div>
                     <div>
                         <form>
-                            <div className="row space-bw-rows">
-                                <div className="col-md-4 col-sm-12 space-bw-rows">
+                            <div className="row">
+                                <div className="col-md-3 col-sm-12 space-bw-rows">
+                                    <input
+                                        className="inputfield-form "
+                                        type="text"
+                                        placeholder="From"
+                                        name="from"
+                                    />
+                                </div>
+                                <div className="col-md-3 col-sm-12 space-bw-rows">
                                     <input
                                         onSelect={alertit}
                                         className="inputfield-form "
@@ -73,7 +81,7 @@ function Newdirectmail() {
                                         name="to"
                                     />
                                 </div>
-                                <div className="col-md-4 col-sm-12 space-bw-rows">
+                                <div className="col-md-3 col-sm-12 space-bw-rows">
                                     <input
                                         onSelect={alertit}
                                         className="inputfield-form "
@@ -82,7 +90,7 @@ function Newdirectmail() {
                                         name="cc"
                                     />
                                 </div>
-                                <div className="col-md-4 col-sm-12 space-bw-rows">
+                                <div className="col-md-3 col-sm-12 space-bw-rows">
                                     <input
                                         onSelect={alertit}
                                         className="inputfield-form "
@@ -92,7 +100,7 @@ function Newdirectmail() {
                                     />
                                 </div>
                             </div>
-                            <div className="row space-bw-rows">
+                            <div className="row">
                                 <div className="col-lg-12 col-md-12 col-sm-12 space-bw-rows">
                                     <input
                                         className="inputfield-form"

@@ -10,6 +10,7 @@ import "../Mail History/history.scss";
 
 function Campaigndetail() {
     // all details are listed here
+    const campaignName = "Mail for promotion";
     const emailSubject = "Test email";
     const emailDate = "12/12/2021";
     const viewCount = "400";
@@ -43,9 +44,10 @@ function Campaigndetail() {
                         <div className="col-lg-12">
                             <p className="Subject-content">
                                 <span className="subject-heading">
-                                    Subject:{" "}
-                                </span>{" "}
-                                {emailSubject}
+                                    Campaign Name:
+                                </span>
+                                &nbsp;
+                                {campaignName}
                             </p>
                         </div>
                     </div>
@@ -58,6 +60,12 @@ function Campaigndetail() {
                             <p className="heading-content">
                                 <span className="detail-headings">To: </span>{" "}
                                 {reciepent}
+                            </p>
+                            <p className="heading-content">
+                                <span className="detail-headings">
+                                    Subject:{" "}
+                                </span>{" "}
+                                {emailSubject}
                             </p>
                             <p className="heading-content">
                                 <span className="detail-headings">CC: </span>
