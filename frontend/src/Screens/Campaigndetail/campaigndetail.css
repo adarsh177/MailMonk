@@ -10,11 +10,13 @@
 
 .Subject-content {
     margin: 20px 0;
-    font-size: 26px;
+    font-size: 20px;
     font-weight: 500;
     color: #464646;
 }
 .subject-heading {
+    font-size: 24px;
+
     font-weight: 600;
 }
 .heading-content {
@@ -36,4 +38,14 @@
     margin: 20px 0;
     font-size: 18px;
     color: #03045e;
+}
+@media screen and (max-width: 992px) {
+    .Subject-content {
+        font-size: 16px;
+        font-weight: 500;
+    }
+
+    .subject-heading {
+        font-size: 18px;
+    }
 }

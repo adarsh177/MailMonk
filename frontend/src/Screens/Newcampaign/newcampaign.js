@@ -70,7 +70,25 @@ function Newcampaign() {
                     <div>
                         <form>
                             <div className="row space-bw-rows">
-                                <div className="col-md-4 col-sm-12 space-bw-rows">
+                                <div className="col-md-3 col-sm-12">
+                                    <input
+                                        className="inputfield-form"
+                                        type="text"
+                                        placeholder="Campaign Name"
+                                        name="campaignName"
+                                    />
+                                </div>
+                            </div>
+                            <div className="row space-bw-rows">
+                                <div className="col-md-3 col-sm-12 space-bw-rows">
+                                    <input
+                                        className="inputfield-form"
+                                        type="text"
+                                        placeholder="From"
+                                        name="from"
+                                    />
+                                </div>
+                                <div className="col-md-3 col-sm-12 space-bw-rows">
                                     <input
                                         onSelect={alertit}
                                         className="inputfield-form"
@@ -79,7 +97,7 @@ function Newcampaign() {
                                         name="to"
                                     />
                                 </div>
-                                <div className="col-md-4 col-sm-12 space-bw-rows">
+                                <div className="col-md-3 col-sm-12 space-bw-rows">
                                     <input
                                         onSelect={alertit}
                                         className="inputfield-form"
@@ -88,7 +106,7 @@ function Newcampaign() {
                                         name="cc"
                                     />
                                 </div>
-                                <div className="col-md-4 col-sm-12 space-bw-rows">
+                                <div className="col-md-3 col-sm-12 space-bw-rows">
                                     <input
                                         onSelect={alertit}
                                         className="inputfield-form"
@@ -125,6 +143,9 @@ function Newcampaign() {
                                         onChange={(dateStart) =>
                                             setStartDate(dateStart)
                                         }
+                                        timeInputLabel="Time:"
+                                        dateFormat="MM/dd/yyyy h:mm aa"
+                                        showTimeInput
                                         minDate={new Date()}
                                         placeholderText="Select a start date in the future"
                                         title="Select a campaign start date"
@@ -143,6 +164,9 @@ function Newcampaign() {
                                         onChange={(dateEnd) =>
                                             setEndDate(dateEnd)
                                         }
+                                        timeInputLabel="Time:"
+                                        dateFormat="MM/dd/yyyy h:mm aa"
+                                        showTimeInput
                                         minDate={startDate}
                                         placeholderText="Select a end date in the future"
                                         title="Select a campaign end date"
