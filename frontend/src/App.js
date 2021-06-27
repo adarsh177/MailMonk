@@ -11,6 +11,7 @@ import LoginScreen from "./Screens/LoginScreen/LoginScreen";
 import Home from "./Screens/Home/home";
 import Playground from "./Screens/Playground";
 import Selectgroup from "../src/Components/Selectgroup/Selectgroup";
+import Addcontact from "../src/Components/Addcontact/Addcontact";
 
 function App() {
     return (
@@ -48,6 +49,9 @@ function App() {
                 </Route>
                 <Route exact path="/selectgroup">
                     <Selectgroup />
+                </Route>
+                <Route exact path="/addcontact">
+                    <Addcontact />
                 </Route>
             </Switch>
         </Router>
