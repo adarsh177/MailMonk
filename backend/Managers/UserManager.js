@@ -1,4 +1,4 @@
-const { response } = require("express");
+const Config = require('../config.json');
 const admin = require("firebase-admin");
 const { MongoClient } = require("mongodb");
 const serviceAccount = require("../firebase_admin_privatekey.json");
@@ -13,7 +13,7 @@ class UserManager{
     }
 
     async loadDatabase(){
-        this.uri = "mongodb+srv://mailmonk-user:jKHLyStfxmt2qDU2@mailmonk-main-cluster.yub3v.mongodb.net/test";
+        this.uri = Config.mongoUri;
         this.client = new MongoClient(this.uri, {
             useNewUrlParser: true,
             useUnifiedTopology: true

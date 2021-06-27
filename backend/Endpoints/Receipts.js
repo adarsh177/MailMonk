@@ -1,6 +1,6 @@
 module.exports = {
     GetReceipts: async (receiptManager, req, res) => {
-        let page = req.params.page;
+        let page = req.params.page ? req.params.page : 0;
         let userId = res.locals.UserAuth.uid;
         let result = await receiptManager.GetReceipts(userId, page);
         res.status(200).send({

@@ -1,9 +1,10 @@
 const { MongoClient } = require("mongodb");
+const Config = require('../config.json');
 
 class ContactsManager{
  
     constructor(){
-        this.uri = "mongodb+srv://mailmonk-user:jKHLyStfxmt2qDU2@mailmonk-main-cluster.yub3v.mongodb.net/test";
+        this.uri = Config.mongoUri;
         this.client = new MongoClient(this.uri, {
             useNewUrlParser: true,
             useUnifiedTopology: true
