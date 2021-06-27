@@ -39,3 +39,13 @@
     font-size: 18px;
     color: #03045e;
 }
+@media screen and (max-width: 992px) {
+    .Subject-content {
+        font-size: 16px;
+        font-weight: 500;
+    }
+
+    .subject-heading {
+        font-size: 18px;
+    }
+}

@@ -98,7 +98,7 @@ function Campaigndetail() {
                     </div>
                 </div>
 
-                {/* Campaign contents-------------------------------------------------------------- */}
+                {/* Campaign contents-----------(Campaign content text is justified)--------------------------------------------------- */}
                 <div className="row">
                     <div className="col-lg-12">
                         <p className="campaign-content">{campaignContent}</p>
