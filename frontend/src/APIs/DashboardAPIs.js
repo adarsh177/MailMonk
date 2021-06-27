@@ -16,7 +16,7 @@ const DashboardAPIs = {
                 }
             });
             if(response.status == 200)
-                return response;
+                return response.data;
             else return false;
         }catch(ex){
             if(ex.response && ex.response.status == 401){

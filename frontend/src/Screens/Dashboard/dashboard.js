@@ -78,7 +78,7 @@ const DashBoard = (props) => {
         <Stats
           head="Last Mail"
           num1={100 * ((dashboard.lastMailViews * 1.0) / dashboard.lastMailRecepientsCount)}
-          name1="CTR "
+          name1="CTR %"
           subname1="(Click Through Rate)"
           num2={dashboard.lastMailViews}
           name2="Views"
