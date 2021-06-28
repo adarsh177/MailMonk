@@ -88,6 +88,10 @@ class Helper{
         await Promise.all(
             receipts.map(async (receipt) => {
                 try{
+                    if(receipt.to.length === 0 && receipt.cc.length === 0 && receipt.bcc.length === 0){
+                        return;
+                    }
+                    
                     let body = receipt.body + this.GetTrackerImage(receipt._id);
                     let accepted = await this.mailManager.sendMail(receipt.to, receipt.from,  receipt.cc, receipt.bcc, receipt.subject, body);
                     if(accepted){

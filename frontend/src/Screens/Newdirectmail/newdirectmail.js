@@ -133,24 +133,36 @@ function Newdirectmail(props) {
 
     return (
         <div className="newcampaign-container">
-            <Selectgroup
+                {showContactTarget === "to" && 
+                <Selectgroup
                 groups={groups}
-                head={showContactTarget}
-                valuesTo={recepientTo}
-                valuesCc={recepientCc}
-                valuesBcc={recepientBcc}
-                onSave={(data, target) => {
-                    if(target === "to")
-                        setRecepientTo(data);
-                    if(target === "cc")
-                        setRecepientCc(data);
-                    if(target === "bcc")
-                        setRecepientBcc(data);
-                    
+                head={"To"}
+                values={recepientTo}
+                onSave={(data) => {
+                    setRecepientTo(data);
                     setShowContactTarget(null);
                 }}
-                target={showContactTarget}
-                />
+                />}
+                {showContactTarget === "cc" &&
+                <Selectgroup
+                groups={groups}
+                head={"Cc"}
+                values={recepientCc}
+                onSave={(data) => {
+                    setRecepientCc(data);
+                    setShowContactTarget(null);
+                }}
+                />}
+                {showContactTarget === "bcc" && 
+                <Selectgroup
+                groups={groups}
+                head={"Bcc"}
+                values={recepientBcc}
+                onSave={(data) => {
+                    setRecepientBcc(data);
+                    setShowContactTarget(null);
+                }}
+                />}
             <Loader show={showLoading} />
             <Navigation />
             <MobileNavigationTop />

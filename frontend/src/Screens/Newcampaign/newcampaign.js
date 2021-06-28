@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import Heading from "../../Components/heading/heading";
 import DatePicker from "react-datepicker";
@@ -16,6 +16,13 @@ import "../../index.css";
 
 // using the Newcampaign for non global styling like positioning of particular elements
 import "./newcampaign.css";
+import Selectgroup from "../../Components/Selectgroup/Selectgroup";
+import { withRouter } from "react-router-dom";
+import FirebaseUtil from "../../Utils/FirebaseUtil";
+import Loader from "../../Components/Loader";
+import firebase from 'firebase';
+import ContactAPIs from "../../APIs/ContactAPIs";
+import CampaignAPIs from "../../APIs/CampaignAPIs";
 
 // Datepicker fuction
 
@@ -34,27 +41,164 @@ const handleAttchment = (e) => {
     e.preventDefault();
     document.getElementById("attachment-input").click();
 };
-function Newcampaign() {
-    const alertit = () => {
-        alert("hi");
-    };
+function Newcampaign(props) {
+    const firebaseUtil = new FirebaseUtil();
+    const [showLoading, setShowLoading] = useState(true);
+    const [groups, setGroups] = useState([]);
+    const [recepientTo, setRecepientTo] = useState([]);
+    const [recepientCc, setRecepientCc] = useState([]);
+    const [recepientBcc, setRecepientBcc] = useState([]);
+    const [showContactTarget, setShowContactTarget] = useState(null);
+    const [fromText, setFromText] = useState("");
+    const [subjectText, setSubjectText] = useState("");
+    const [startDate, setStartDate] = useState(new Date());
+    const [endDate, setEndDate] = useState(new Date());
+    const [name, setName] = useState("");
+    const [mailInterval, setMailInterval] = useState("");
+    const [mailIntervalUnit, setMailIntervalUnit] = useState("Unit");
 
     // Tiny text editor log funtion
 
     const editorRef = useRef(null);
-    const log = () => {
-        if (editorRef.current) {
-            console.log(editorRef.current.getContent());
+
+    useEffect(() => {
+        // Checking User
+        firebase.auth().onAuthStateChanged((user) => {
+          if(user == null){
+            props.history.push('/login');
+          }
+          LoadData();
+        });
+      }, []);
+  
+    async function LoadData(){
+        let groups = await ContactAPIs.GetGroups();
+        if(groups == null){
+            props.history.push('/login');
+            return;
         }
+        setGroups(groups);
+        setShowLoading(false);
+    }
+
+    const ShowContactSelect = (target) => {
+        setShowContactTarget(target);
     };
 
-    const [startDate, setStartDate] = useState(new Date());
-    const [endDate, setEndDate] = useState(new Date());
+    async function SendCampaign(){
+            if(fromText.length == 0){
+                alert('Please enter from');
+                return;
+            }
+            if(subjectText.length == 0){
+                alert('Please enter subject');
+                return;
+            }
+            if(editorRef.current.getContent().length == 0){
+                alert('Please enter body');
+                return;
+            }
+            if(recepientTo.length == 0 && recepientCc.length == 0 && recepientBcc.length == 0){
+                alert('Please enter atleast one field : to, cc, bcc');
+                return;
+            }
+            if(mailIntervalUnit === "Unit"){
+                alert('Please select Interval');
+                return;
+            }
+            if(mailInterval <= 0){
+                alert('Please select Interval');
+                return;
+            }
+
+            let interval = 0;
+            switch(mailIntervalUnit){
+                case "Second":
+                    interval = mailInterval * 1000;
+                    break;
+                case "Minute":
+                    interval = mailInterval * 60 * 1000;
+                    break;
+                case "Hour":
+                    interval = mailInterval * 1000 * 60 * 60;
+                    break;
+                case "Days":
+                    interval = mailInterval * 1000 * 60 * 60 * 24;
+                    break;
+                case "Month":
+                    interval = mailInterval * 1000 * 60 * 60 * 24 * 30;
+                    break;
+                case "Years":
+                    interval = mailInterval * 1000 * 60 * 60 * 24 * 365;
+                    break;
+            }
+
+            let data = {
+                to: recepientTo,
+                cc: recepientCc,
+                bcc: recepientBcc,
+                subject: subjectText,
+                body: editorRef.current.getContent(),
+                from: fromText,
+                startTime: startDate.getTime().toString(),
+                endTime: endDate.getTime().toString(),
+                name: name,
+                interval: interval
+            };
+            console.log(data);
+
+            setShowLoading(true);
+            let rslt = await CampaignAPIs.AddCampaign(data);
+            setShowLoading(false);
+            console.log(rslt);
+            if(rslt == null){
+                props.history.push('/login');
+            }else{
+                if(rslt){
+                    alert('Campaign Started');
+                    props.history.push('/campaign');
+                }else{
+                    alert('Error Sending Mail, try again');
+                }
+            }
+        }
+
 
     return (
         <div className="newcampaign-container">
             <Navigation />
+            <Loader show={showLoading} />
             <MobileNavigationTop />
+            {showContactTarget === "to" && 
+                <Selectgroup
+                groups={groups}
+                head={"To"}
+                values={recepientTo}
+                onSave={(data) => {
+                    setRecepientTo(data);
+                    setShowContactTarget(null);
+                }}
+                />}
+                {showContactTarget === "cc" &&
+                <Selectgroup
+                groups={groups}
+                head={"Cc"}
+                values={recepientCc}
+                onSave={(data) => {
+                    setRecepientCc(data);
+                    setShowContactTarget(null);
+                }}
+                />}
+                {showContactTarget === "bcc" && 
+                <Selectgroup
+                groups={groups}
+                head={"Bcc"}
+                values={recepientBcc}
+                onSave={(data) => {
+                    setRecepientBcc(data);
+                    setShowContactTarget(null);
+                }}
+                />}
             <div className="main">
                 {/*  **** Heading component ***
         Containing props of "value" which is text of of heading and a "tooltip"  */}
@@ -76,6 +220,8 @@ function Newcampaign() {
                                         type="text"
                                         placeholder="Campaign Name"
                                         name="campaignName"
+                                        value={name}
+                                        onChange={(ev) => setName(ev.target.value)}
                                     />
                                 </div>
                             </div>
@@ -86,33 +232,38 @@ function Newcampaign() {
                                         type="text"
                                         placeholder="From"
                                         name="from"
+                                        value={fromText}
+                                        onChange={(ev) => setFromText(ev.target.value)}
                                     />
                                 </div>
                                 <div className="col-md-3 col-sm-12 space-bw-rows">
                                     <input
-                                        onSelect={alertit}
+                                        onSelect={() => ShowContactSelect("to")}
                                         className="inputfield-form"
                                         type="text"
                                         placeholder="To"
                                         name="to"
+                                        value={recepientTo.join(", ")}
                                     />
                                 </div>
                                 <div className="col-md-3 col-sm-12 space-bw-rows">
                                     <input
-                                        onSelect={alertit}
+                                        onSelect={() => ShowContactSelect("cc")}
                                         className="inputfield-form"
                                         type="text"
                                         placeholder="CC (optional)"
                                         name="cc"
+                                        value={recepientCc.join(", ")}
                                     />
                                 </div>
                                 <div className="col-md-3 col-sm-12 space-bw-rows">
                                     <input
-                                        onSelect={alertit}
+                                        onSelect={() => ShowContactSelect("bcc")}
                                         className="inputfield-form"
                                         type="text"
                                         placeholder="BCC (optional)"
                                         name="bcc"
+                                        value={recepientBcc.join(", ")}
                                     />
                                 </div>
                             </div>
@@ -123,6 +274,8 @@ function Newcampaign() {
                                         type="text"
                                         placeholder="Subject"
                                         name="subject"
+                                        value={subjectText}
+                                        onChange={(ev) => setSubjectText(ev.target.value)}
                                     />
                                 </div>
                             </div>
@@ -186,6 +339,8 @@ function Newcampaign() {
                                                 class="form-control"
                                                 id="specificSizeInputName"
                                                 placeholder="Mail Intervals (e.g. 5)"
+                                                value={mailInterval}
+                                                onChange={ev => setMailInterval(ev.target.value)}
                                             />
                                         </div>
                                         <div className="col-lg-4">
@@ -198,19 +353,20 @@ function Newcampaign() {
                                             <select
                                                 class="form-select"
                                                 id="specificSizeSelect"
+                                                value={mailIntervalUnit}
+                                                onChange={ev => setMailIntervalUnit(ev.target.value)}
                                             >
                                                 <option selected>Unit</option>
-                                                <option value="1">
+                                                <option value="Second">
                                                     Second
                                                 </option>
-                                                <option value="2">
+                                                <option value="Minute">
                                                     Minute
                                                 </option>
-                                                <option value="3">Hour</option>
-                                                <option value="4">Days</option>
-                                                <option value="5">Week</option>
-                                                <option value="6">Month</option>
-                                                <option value="7">Years</option>
+                                                <option value="Hour">Hour</option>
+                                                <option value="Days">Days</option>
+                                                <option value="Month">Month</option>
+                                                <option value="Years">Years</option>
                                             </select>
                                         </div>
                                     </form>
@@ -220,7 +376,7 @@ function Newcampaign() {
                                 <div class="col-12"></div>
                                 <Editor
                                     /* ----------------------- API KEY OF TINY EDITOR -----------------------*/
-                                    apiKey="o5lchlleh25gjgasjyzrew82r7s9ael2vebhqf80snd45dky"
+                                    apiKey="ek4b0atm5si0kw6oelumkokk5cimsl6z20a77vl4mh7c2lcr"
                                     /* ----------------------- API KEY OF TINY EDITOR ----------------------- if possible add it to dotenv*/
                                     onInit={(evt, editor) =>
                                         (editorRef.current = editor)
@@ -243,13 +399,10 @@ function Newcampaign() {
                                             "body { font-family:Roboto,Arial,sans-serif; font-size:14px }",
                                     }}
                                 />
-                                <button onClick={log}>
-                                    Log editor content
-                                </button>
                             </div>
                             <div className="row space-bw-rows flex-container">
                                 <div className="col-lg-6 col-sm-12 attachment-container media-flex-center space-bw-rows">
-                                    <button
+                                    {/* <button
                                         onClick={handleAttchment}
                                         className=" attachment-button"
                                     >
@@ -262,14 +415,17 @@ function Newcampaign() {
                                     />
                                     <label className="attachment-text">
                                         Attachment (upto 10MB){" "}
-                                    </label>
+                                    </label> */}
                                 </div>
                                 <div className="col-lg-6 col-sm-12 flex-container flex-end-elements media-flex-center media-margin space-bw-rows">
                                     <button className="form-button stroke-button">
                                         Cancel
                                     </button>
 
-                                    <button className="form-button">
+                                    <button className="form-button" onClick={(ev) => {
+                                        ev.preventDefault();
+                                        SendCampaign();
+                                    }}>
                                         <i class="fas fa-paper-plane"></i>
                                         &nbsp;&nbsp;Send
                                     </button>
@@ -286,4 +442,4 @@ function Newcampaign() {
     );
 }
 
-export default Newcampaign;
+export default withRouter(Newcampaign);
