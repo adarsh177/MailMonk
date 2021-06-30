@@ -2,10 +2,8 @@ const nodemailer = require("nodemailer");
 const config = require('../config.json');
 
 class MailsManager{
-    CurrentServerIndex = 0;
-
     constructor(){
-
+        this.CurrentServerIndex = 0;    
     }
 
     init(){
