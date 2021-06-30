@@ -57,7 +57,7 @@ const DashBoard = (props) => {
       <MobileNavigationTop />
       <div className="main-dashboard">
         <div className="top-add-buttons">
-          <Add value="Campaign" />
+          <Add link="newcampaign" value="Campaign" />
           <Add link="newmail" value="Direct Mail" />
         </div>
 

@@ -61,9 +61,10 @@ class Helper{
     }
 
     async checkCampaigns(currTime){
-        let cursor = this.db.collection('Campaigns').find({$and: [{status: "running"}, {nextTime: {$lt: currTime}}]}, {limit: 20});
+        let cursor = this.db.collection('Campaigns').find({$and: [{status: "running"}, {nextTime: {$lt: currTime}}, {sentCount: {$lt: 50}}]}, {limit: 20});
         try{
             let campaigns = await cursor.toArray();
+            console.log('Eligible Campaigns: ', campaigns.length);
             await Promise.all(
                 campaigns.map(async (doc) => {
                     if(await this.CreateReceipt(doc)){
@@ -97,6 +98,11 @@ class Helper{
                     if(accepted){
                         // sent, now updating receipt
                         await this.db.collection('MailReceipt').updateOne({_id: receipt._id}, {$set: {status: "completed", successList: accepted}});
+
+                        // updating campaign details as well
+                        if(receipt.type == "campaign"){
+                            await this.db.collection('Campaigns').updateOne({_id: receipt.campaignId}, {$inc: {sentCount: 1}});
+                        }
                     }
                 }catch(ex){
                     console.log('Error in sendMails', ex);

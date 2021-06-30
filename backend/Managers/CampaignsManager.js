@@ -35,7 +35,8 @@ class CampaignsManager{
                 to: await contactManager.ResolveReceipientList(userId, data.to),
                 cc: await contactManager.ResolveReceipientList(userId, data.cc),
                 bcc: await contactManager.ResolveReceipientList(userId, data.bcc),
-                status: "running"
+                status: "running",
+                sentCount: 0
             };
             let campaignResult = await this.CampaignCollection.insertOne(campaignInfo);
             return campaignResult.insertedId;

@@ -70,7 +70,7 @@ const Campaigns = (props) => {
             tooltip="List of mails ralated to campaigns"
           />
           <div className="add-campaign-button">
-            <Add value="Campaign" />
+            <Add link="newcampaign" value="Campaign" />
           </div>
         </div>
 

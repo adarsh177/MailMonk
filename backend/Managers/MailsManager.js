@@ -2,25 +2,30 @@ const nodemailer = require("nodemailer");
 const config = require('../config.json');
 
 class MailsManager{
+    CurrentServerIndex = 0;
 
     constructor(){
 
     }
 
     init(){
+        if(this.mail != undefined){
+            this.mail.close();
+        }
+
         this.mail = nodemailer.createTransport({
-            host: config.mailHost,
+            host: config.mailServers[this.CurrentServerIndex].mailHost,
             pool: true,
             maxConnections: 10,
-            port: config.mailPort,
+            port: config.mailServers[this.CurrentServerIndex].mailPort,
             secure: true, // true for 465, false for other ports
             auth: {
-                user: config.mailUsername, // generated ethereal user
-                pass: config.mailPassword, // generated ethereal password
+                user: config.mailServers[this.CurrentServerIndex].mailUsername,
+                pass: config.mailServers[this.CurrentServerIndex].mailPassword,
             },
         });
 
-        console.log('Connected successfully to server: MailsManager');
+        console.log('Connected successfully to server: MailsManager; Email: ', config.mailServers[this.CurrentServerIndex].mailUsername);
     }
 
     // returns list of accepted addresses
@@ -38,6 +43,13 @@ class MailsManager{
             return rslt.accepted;
         }catch(ex){
             console.log('Error Sending Mail', ex);
+
+            // Switching Email
+            this.CurrentServerIndex++
+            if(this.CurrentServerIndex >= config.mailServers.length){
+                this.CurrentServerIndex = 0;
+            }
+            this.init();
             return null;
         }
     }

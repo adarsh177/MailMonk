@@ -418,7 +418,10 @@ function Newcampaign(props) {
                                     </label> */}
                                 </div>
                                 <div className="col-lg-6 col-sm-12 flex-container flex-end-elements media-flex-center media-margin space-bw-rows">
-                                    <button className="form-button stroke-button">
+                                    <button className="form-button stroke-button" onClick={ev => {
+                                        ev.preventDefault();
+                                        props.history.goBack();
+                                    }}>
                                         Cancel
                                     </button>
 
