@@ -31,7 +31,7 @@ class MailsManager{
         try{
             // send mail with defined transport object
             let rslt = await this.mail.sendMail({
-                            from: `"${from}" <${config.mailUsername}>`,
+                            from: `"${from}" <${config.mailServers[this.CurrentServerIndex].mailUsername}>`,
                             to: to,
                             cc: cc,
                             bcc: bcc,

@@ -101,7 +101,7 @@ class Helper{
 
                         // updating campaign details as well
                         if(receipt.type == "campaign"){
-                            await this.db.collection('Campaigns').updateOne({_id: receipt.campaignId}, {$inc: {sentCount: 1}});
+                            await this.db.collection('Campaigns').updateOne({_id: new ObjectID(receipt.campaignId)}, {$inc: {sentCount: 1}});
                         }
                     }
                 }catch(ex){
