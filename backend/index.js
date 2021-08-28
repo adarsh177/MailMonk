@@ -152,4 +152,11 @@ function handleAPICalls(){
         let dash = await userManager.GetDashboard(res.locals.UserAuth.uid);
         res.status(200).send(dash);
     })
+
+    app.post('/sendMail', async (req, res) => {
+        const to = req.header("to-mail");
+        const body = JSON.stringify(req.body);
+        await mailManager.sendMail(to, 'Developer\'s Monk', [], [], 'Jenkins Update', body)
+        res.status(200).send('success')
+    })
 }
